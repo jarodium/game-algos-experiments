@@ -1,2 +1,2 @@
 # game-algos-experiments
-Experimenting game related algoriths
+Experimenting game related algorimths
