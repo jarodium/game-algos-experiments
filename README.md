@@ -8,7 +8,7 @@ Experimenting game related algorimths
 
 
 Todo list for Universe
-- [ ] Remove Dependency on Zmsg
+- [x] Remove Dependency on Zmsg
 - [ ] Remove Workers for Planet Generation
 - [ ] Remove Server "Gabriel"
 - [ ] Universe Generator (planet_gen.php) command line to English
