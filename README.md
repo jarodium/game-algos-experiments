@@ -9,8 +9,8 @@ Experimenting game related algorimths
 
 Todo list for Universe
 - [x] Remove Dependency on Zmsg
-- [ ] Remove Workers for Planet Generation
-- [ ] Remove Server "Gabriel"
+- [x] Remove Workers for Planet Generation
+- [x] Remove Server "Gabriel"
 - [ ] Universe Generator (planet_gen.php) command line to English
 - [ ] Planet Generator (planet_gen.php) command line to English
 - [ ] Remove SQLite Dependency in Planet Generator
@@ -21,3 +21,4 @@ Todo list for Universe
 
 Credits:
 <https://www.redblobgames.com> for the noise generation tips
+<https://github.com/jwagner/simplex-noise.js/blob/master/simplex-noise.js> for the opensimplex class js
