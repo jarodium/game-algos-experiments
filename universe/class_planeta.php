@@ -1,9 +1,28 @@
 <?php
+    /*
+        !"#$%&'()*+,-./0123456789:;<=>?
+        @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+        ¡¢£¤¥¦§¨©ª«¬­®¯°±²³
+        ´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìí
+    */
+        /** 
+         * Biome Constants
+         */
+    define('TROPICAL_RAIN_FOREST','þ');     define('TROPICAL_SEASONAL_FOREST','ý');
+    define('GRASSLAND','ü');                define('SUBTROPICAL_DESERT','û');
+    define('TEMPERATE_RAIN_FOREST','î');    define('TEMPERATE_DECIDUOUS_FOREST','ï');
+    define('GRASSLAND','ð');                define('TEMPERATE_DESERT','ñ');
+    define('TAIGA','ò');                    define('SHRUBLAND','ó');
+    define('TEMPERATE_DESERT','ô');         define('SNOW','õ');
+    define('TUNDRA','ö');                   define('BARE','÷');
+    define('SCORCHED','ø');                 define('OCEAN','ù');
+    define('BEACH','ú');
+
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     include_once("includes/opensimplex.php");
     class planeta {
         private $reader;
-
+        
         private function csv2json($ficheiro) {            
             $spreadsheet = $this->reader->load($ficheiro);
             $spreadsheet->setActiveSheetIndex(0);
@@ -92,34 +111,37 @@
             } 
         }
 
-        public function biome($e, $m) {      
-            /*if (e < 0.1) return OCEAN;
-            if (e < 0.12) return BEACH;
+        public function biome($e, $m, $tipo) {   
+            if ($tipo === 'Terrestrial')  {
+                if ($e < 0.1) return OCEAN;
+                if ($e < 0.12) return BEACH;
+                
+                if ($e > 0.8) {
+                    if ($m < 0.1) return SCORCHED;
+                    if ($m < 0.2) return BARE;
+                    if ($m < 0.5) return TUNDRA;
+                    return SNOW;
+                }
             
-            if (e > 0.8) {
-              if (m < 0.1) return SCORCHED;
-              if (m < 0.2) return BARE;
-              if (m < 0.5) return TUNDRA;
-              return SNOW;
+                if ($e > 0.6) {
+                    if ($m < 0.33) return TEMPERATE_DESERT;
+                    if ($m < 0.66) return SHRUBLAND;
+                    return TAIGA;
+                }
+            
+                if ($e > 0.3) {
+                    if ($m < 0.16) return TEMPERATE_DESERT;
+                    if ($m < 0.50) return GRASSLAND;
+                    if ($m < 0.83) return TEMPERATE_DECIDUOUS_FOREST;
+                    return TEMPERATE_RAIN_FOREST;
+                }
+            
+                if ($m < 0.16) return SUBTROPICAL_DESERT;
+                if ($m < 0.33) return GRASSLAND;
+                if ($m < 0.66) return TROPICAL_SEASONAL_FOREST;
+                return TROPICAL_RAIN_FOREST;
             }
-          
-            if (e > 0.6) {
-              if (m < 0.33) return TEMPERATE_DESERT;
-              if (m < 0.66) return SHRUBLAND;
-              return TAIGA;
-            }
-          
-            if (e > 0.3) {
-              if (m < 0.16) return TEMPERATE_DESERT;
-              if (m < 0.50) return GRASSLAND;
-              if (m < 0.83) return TEMPERATE_DECIDUOUS_FOREST;
-              return TEMPERATE_RAIN_FOREST;
-            }
-          
-            if (m < 0.16) return SUBTROPICAL_DESERT;
-            if (m < 0.33) return GRASSLAND;
-            if (m < 0.66) return TROPICAL_SEASONAL_FOREST;
-            return TROPICAL_RAIN_FOREST;*/
+            
           }
 
         public function __construct($RAIO=3000,$TIPO='',$nome='',$ficheiro='') {
@@ -148,10 +170,14 @@
                     $e = pow($e, 5.00);
                     
                     if ($TIPO == "Jovian" || $TIPO == "Sub-Jovian" || $TIPO == "GasDwarf") {
-                        $m = 0;
+                        $m = -1;
                         if ($TIPO == "GasDwarf") {
-                            $e = 0;
+                            $e = -1 ;
                         }
+                    }
+                    if ($TIPO == "Rock") {
+                        $e = 0;
+                        $m = 0;
                     }
                     else {
                         $m = (1.00 * $gen->noise2D( 1 * $nx,  1 * $ny)
@@ -165,8 +191,8 @@
                     $tempe .= $e.".";
                     $tempm .= $m.".";                                     
                 }
-                $elevation_txt .= rtrim($tempe,".");
-                $moisture_txt .= rtrim($tempe,".");
+                $elevation_txt .= rtrim($tempe,".")."\n";
+                $moisture_txt .= rtrim($tempe,".")."\n";
             }
             //escrever para um ficheiro de texto os descriptores de elevação e humidade
         }

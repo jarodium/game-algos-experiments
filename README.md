@@ -11,9 +11,8 @@ Todo list for Universe
 - [x] Remove Dependency on Zmsg
 - [x] Remove Workers for Planet Generation
 - [x] Remove Server "Gabriel"
-- [ ] Universe Generator (planet_gen.php) command line to English
 - [ ] Planet Generator (planet_gen.php) command line to English
-- [ ] Remove SQLite Dependency in Planet Generator
+- [x] Remove SQLite Dependency in Planet Generator
 - [ ] Planet Topography generated with caracters instead of numbers. ASCII ord according to $e. Saved in .topo ext file
 - [ ] Planet Resource generation with caracters instead of numbers. ASCII ord according $m. Saved in .res ext file
 - [ ] Planet Biome type generation with caracters instead of numbers. ASCII ord according $m. Saved in .bio ext file
