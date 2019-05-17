@@ -301,13 +301,13 @@
     /*	Define the solar system for comparisons, etc. */
     #define ZEROES 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL,0,NULL,tUnknown
     
-    typedef struct dust_record {
-        long double inner_edge;
-        long double outer_edge;
-        int 		dust_present;
-        int 		gas_present;
-        dust_pointer next_band;
-         } dust;
+    abstract class dust_record {
+        $inner_edge = 0.00;
+        $outer_edge = 0.00;
+        $dust_present = 0;
+        $gas_present = 0;
+        $dust_pointer["next_band"];
+    }
     
     typedef struct star {
         long double		luminosity;
