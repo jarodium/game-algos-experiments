@@ -273,27 +273,30 @@
         $greenhouse_effect = 0;	                    /* runaway greenhouse effect?		 */
         $boil_point  = 0.00;			            /* the boiling point of water (Kelvin)*/
         $albedo  = 0.00;				            /* albedo of the planet				 */
-        long double	exospheric_temp;	            /* units of degrees Kelvin			 */
-        long double estimated_temp;                 /* quick non-iterative estimate (K)  */
-        long double estimated_terr_temp;            /* for terrestrial moons and the like*/
-        long double	surf_temp;			            /* surface temperature in Kelvin	 */
-        long double	greenhs_rise;		            /* Temperature rise due to greenhouse */
-        long double high_temp;			            /* Day-time temperature              */
-        long double low_temp;			            /* Night-time temperature			 */
-        long double max_temp;			            /* Summer/Day						 */
-        long double min_temp;			            /* Winter/Night						 */
-        long double	hydrosphere;		            /* fraction of surface covered		 */
-        long double	cloud_cover;		            /* fraction of surface covered		 */
-        long double	ice_cover;			            /* fraction of surface covered		 */
-        sun*		sun;
-        int			gases;				            /* Count of gases in the atmosphere: */
-        gas*		atmosphere;
-        planet_type type;				            /* Type code						 */
-        int			minor_moons;
-        planet_pointer first_moon;
+        $exospheric_temp = 0.00;    	            /* units of degrees Kelvin			 */
+        $estimated_temp  = 0.00;                    /* quick non-iterative estimate (K)  */
+        $estimated_terr_temp = 0.00;                /* for terrestrial moons and the like*/
+        $surf_temp = 0.00;			                /* surface temperature in Kelvin	 */
+        $greenhs_rise = 0.00;		                /* Temperature rise due to greenhouse */
+        $high_temp = 0.00;			                /* Day-time temperature              */
+        $low_temp = 0.00;			                /* Night-time temperature			 */
+        $max_temp = 0.00;			                /* Summer/Day						 */
+        $min_temp = 0.00;			                /* Winter/Night						 */
+        $hydrosphere = 0.00;		                /* fraction of surface covered		 */
+        $cloud_cover = 0.00;		                /* fraction of surface covered		 */
+        $ice_cover = 0.00;			                /* fraction of surface covered		 */
+        $sun = new sun();
+        $gases = 0;     				            /* Count of gases in the atmosphere: */
+        $atmosphere = new gas();
+        $type = new planet_type();				/* Type code						 */
+        $minor_moons = 0;
+       /*planet_pointer first_moon;*/
                                                     /*   ZEROES end here               */
-        planet_pointer next_planet;
-        } planets;
+        /*planet_pointer next_planet;*/
+        $planet_pointer['first_moon'];
+                                                    /*   ZEROES end here               */
+        $planet_pointer['next_planet'];
+    }
     
     /*	Define the solar system for comparisons, etc. */
     #define ZEROES 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL,0,NULL,tUnknown
