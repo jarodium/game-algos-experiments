@@ -16,17 +16,16 @@
 #include 	"stargen.h"
 #include 	"utils.h"
 
-
 /* Now for some variables global to the accretion process:	    */
-int 			dust_left;
-long double		r_inner;
-long double		r_outer;
-long double		reduced_mass;
-long double		dust_density;
-long double		cloud_eccentricity;
-dust_pointer	dust_head	= NULL;
-planet_pointer	planet_head	= NULL;
-gen_pointer		hist_head	= NULL;
+$dust_left = 0;
+$r_inner = 0.00;
+$r_outer = 0.00;
+$reduced_mass = 0.00;
+$dust_density = 0.00;
+$cloud_eccentricity = 0.00;
+$dust_head	= new dust_record(); //or create a class definition since it's abstract?
+$planet_head	= new planet_record(); //or create a class definition  since it's abstract?
+$hist_head	= new gen(); //or create a class definition  since it's abstract?
 
 void set_initial_conditions(long double inner_limit_of_dust, 
 							long double outer_limit_of_dust)
