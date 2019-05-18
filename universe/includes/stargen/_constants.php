@@ -309,47 +309,46 @@
         $dust_pointer["next_band"];
     }
     
-    typedef struct star {
-        long double		luminosity;
-        long double		mass;
-        long double		m2;
-        long double		e;
-        long double		a;
-        planet_pointer	known_planets;
-        char			*desig;
-        int				in_celestia;
-        char			*name;
-        } star;
+    abstract class star {
+        $luminosity = 0.00;
+        $mass = 0.00;
+        $m2 = 0.00;
+        $e = 0.00;
+        $a = 0.00;
+        $planet_pointer["known_planets"];
+        $desig = "";
+        $in_celestia = 0;
+        $name = "";
+    };
     
-    typedef struct catalog {
-        int				count;
-        char*			arg;
-        star			(*stars)[];
-        } catalog;
+    abstract class catalog {
+        $count = 0;
+        $arg = "";
+        $stars = []; //place values as instances of star
+    };
     
-    typedef	struct gen
-    {
-        dust_pointer	dusts;
-        planet_pointer	planets;
-        gen_pointer		next;
-    } generation;
+    abstract class gen  {
+        $dust_pointer["dusts"];
+        $planet_pointer["planets"];
+        $gen_pointer["next"];
+    };
     
     // From Keris
     
-    typedef struct ChemTableS
+    abstract class ChemTableS
     {
-      int         	num;
-      char       	*symbol;
-      char			*html_symbol;
-      char       	*name;
-      long double	weight;
-      long double	melt;
-      long double	boil;
-      long double	density;
-      long double	abunde;
-      long double	abunds;
-      long double	reactivity;
-      long double	max_ipp;	// Max inspired partial pressure im millibars
-    } ChemTable;
+      $num = 0;
+      $symbol = '';
+      $html_symbol = '';
+      $name = '';
+      $weight = 0.00;
+      $melt = 0.00;
+      $boil = 0.00;
+      $density = 0.00;
+      $abunde = 0.00;
+      $abunds = 0.00;
+      $reactivity = 0.00;
+      $max_ipp = 0.00;	// Max inspired partial pressure im millibars
+    }
     
        
