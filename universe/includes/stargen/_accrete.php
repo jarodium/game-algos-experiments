@@ -27,15 +27,14 @@ $dust_head	= new dust_record(); //or create a class definition since it's abstra
 $planet_head	= new planet_record(); //or create a class definition  since it's abstract?
 $hist_head	= new gen(); //or create a class definition  since it's abstract?
 
-void set_initial_conditions(long double inner_limit_of_dust, 
-							long double outer_limit_of_dust)
+function set_initial_conditions($inner_limit_of_dust = 0.00, $outer_limit_of_dust = '')
 {
-    gen_pointer hist;
-    hist = (gen_pointer)malloc(sizeof(generation));
-    hist->dusts = dust_head;
-    hist->planets = planet_head;
-    hist->next = hist_head;
-    hist_head = hist;
+  /*gen_pointer hist;
+  hist = (gen_pointer)malloc(sizeof(generation));
+  hist->dusts = dust_head;
+  hist->planets = planet_head;
+  hist->next = hist_head;
+  hist_head = hist;
     
 	dust_head = (dust *)malloc(sizeof(dust));
 	planet_head = NULL;
@@ -45,10 +44,12 @@ void set_initial_conditions(long double inner_limit_of_dust,
 	dust_head->dust_present = TRUE;
 	dust_head->gas_present = TRUE;
 	dust_left = TRUE;
-	cloud_eccentricity = 0.2;
+	cloud_eccentricity = 0.2;*/
+	$hist = new gen();
+	$hist["dusts"] = "";
 }
 
-long double stellar_dust_limit(long double stell_mass_ratio)
+/*long double stellar_dust_limit(long double stell_mass_ratio)
 {
 	return(200.0 * pow(stell_mass_ratio,(1.0 / 3.0)));
 }
@@ -282,7 +283,7 @@ long double collect_dust(long double last_mass, long double *new_dust,
 			return(new_mass + next_mass);
 		}
 	}
-}
+}*/
 
 
 /*--------------------------------------------------------------------------*/
@@ -292,7 +293,7 @@ long double collect_dust(long double last_mass, long double *new_dust,
 /*	in units of solar masses.												*/
 /*--------------------------------------------------------------------------*/
 
-long double critical_limit(long double orb_radius, long double eccentricity, 
+/*long double critical_limit(long double orb_radius, long double eccentricity, 
 						   long double stell_luminosity_ratio)
 {
 	long double	temp;
@@ -355,7 +356,7 @@ void coalesce_planetesimals(long double a, long double e, long double mass, long
 		if ((diff > 0.0))
 		{
 			dist1 = (a * (1.0 + e) * (1.0 + reduced_mass)) - a;
-			/* x aphelion	 */
+			// x aphelion	 
 			reduced_mass = pow((the_planet->mass / (1.0 + the_planet->mass)),(1.0 / 4.0));
 			dist2 = the_planet->a
 				- (the_planet->a * (1.0 - the_planet->e) * (1.0 - reduced_mass));
@@ -363,7 +364,7 @@ void coalesce_planetesimals(long double a, long double e, long double mass, long
 		else 
 		{
 			dist1 = a - (a * (1.0 - e) * (1.0 - reduced_mass));
-			/* x perihelion */
+			// x perihelion 
 			reduced_mass = pow((the_planet->mass / (1.0 + the_planet->mass)),(1.0 / 4.0));
 			dist2 = (the_planet->a * (1.0 + the_planet->e) * (1.0 + reduced_mass))
 				- the_planet->a;
@@ -410,8 +411,8 @@ void coalesce_planetesimals(long double a, long double e, long double mass, long
 						planet_pointer	the_moon = (planets *)malloc(sizeof(planets));
 						
 						the_moon->type 			= tUnknown;
-	/* 					the_moon->a 			= a; */
-	/* 					the_moon->e 			= e; */
+	// 					the_moon->a 			= a; /
+	// 					the_moon->e 			= e; /
 						the_moon->mass 			= mass;
 						the_moon->dust_mass 	= dust_mass;
 						the_moon->gas_mass 		= gas_mass;
@@ -744,7 +745,4 @@ void free_atmosphere(planet_pointer head)
 			free_atmosphere(node->first_moon);
 		}
 	}
-}
-
-
-
+}*/
