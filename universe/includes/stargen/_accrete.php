@@ -76,27 +76,28 @@ function outer_effect_limit($a, $e, $mass)
 
 function dust_available($inside_range, $outside_range)
 {
-	dust_pointer current_dust_band;
-	int dust_here;
+	global $dust_head;
+
+	$current_dust_band;
+	$dust_here;
 	
-	current_dust_band = dust_head;
-	while ((current_dust_band != NULL)
-		&& (current_dust_band->outer_edge < inside_range))
-		current_dust_band = current_dust_band->next_band;
-	if (current_dust_band == NULL)
-		dust_here = FALSE;
-	else dust_here = current_dust_band->dust_present;
-	while ((current_dust_band != NULL)
-		&& (current_dust_band->inner_edge < outside_range)) {
-			dust_here = dust_here || current_dust_band->dust_present;
-			current_dust_band = current_dust_band->next_band;
-		}
-	return(dust_here);
+	$current_dust_band = $dust_head;
+	/**
+	 * Possible loop in this while
+	 */
+	while (($current_dust_band != NULL) && ($current_dust_band->outer_edge < $inside_range))
+		$current_dust_band = $current_dust_band->next_band;
+	
+	if ($current_dust_band == NULL)	$dust_here = FALSE;
+	else $dust_here = $current_dust_band->dust_present;
+	while (($current_dust_band != NULL) && ($current_dust_band->inner_edge < $outside_range)) {
+		$dust_here = $dust_here || $current_dust_band->dust_present;
+		$current_dust_band = $current_dust_band->next_band;
+	}
+	return($dust_here);
 }
 
-function update_dust_lanes(long double min, long double max, long double mass, 
-					   long double crit_mass, long double body_inner_bound, 
-					   long double body_outer_bound)
+function update_dust_lanes($min, $max, $mass, $crit_mass, $body_inner_bound, $body_outer_bound)
 {
 	int 			gas; 
 	dust_pointer	node1;

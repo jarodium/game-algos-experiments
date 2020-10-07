@@ -103,7 +103,8 @@ class dust_record {
     var $outer_edge = 0.00;
     var $dust_present = 0;
     var $gas_present = 0;
-    var $dust_pointer = ["next_band"];
+    //$dust_pointer = ["next_band"]; <- what was this supposed to be? an array?
+    var $next_band;
 }
 
 abstract class star {

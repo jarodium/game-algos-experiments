@@ -11,7 +11,7 @@ Todo list for Universe
 - [x] Remove Dependency on Zmsg
 - [x] Remove Workers for Planet Generation
 - [x] Remove Server "Gabriel"
-- [ ] Convert StarGen to PHP
+- [ ] Convert StarGen to PHP ( https://github.com/jarodium/StarGen )
 - [ ] Planet Generator (planet_gen.php) command line to English
 - [x] Remove SQLite Dependency in Planet Generator
 - [ ] Planet Topography generated with caracters instead of numbers. ASCII ord according to $e. Saved in .topo ext file
