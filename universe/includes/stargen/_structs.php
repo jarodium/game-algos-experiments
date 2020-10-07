@@ -5,34 +5,28 @@ $planets_record_planet_pointer = [];
 $gen_gen_pointer = [];
 
 
-abstract class planet_type { 
-    const tUnknown = 0; 
-    const tRock = 1; 
-    const tVenusian = 2; 
-    const tTerrestrial = 3; 
-    const tGasGiant = 4; 
-    const tMartian = 6;
-    const tWater = 7; 
-    const tIce = 8; 
-    const tSubGasGiant = 9; 
-    const tSubSubGasGiant = 10; 
-    const tAsteroids = 11; 
-    const t1Face = 12; 
+class planet_type { 
+    var $tUnknown = 0; 
+    var $tRock = 1; 
+    var $tVenusian = 2; 
+    var $tTerrestrial = 3; 
+    var $tGasGiant = 4; 
+    var $tMartian = 6;
+    var $tWater = 7; 
+    var $tIce = 8; 
+    var $tSubGasGiant = 9; 
+    var $tSubSubGasGiant = 10; 
+    var $tAsteroids = 11; 
+    var $t1Face = 12; 
     // etc. 
 } 
-    /*
-        Note: Assuming an abstract class to replace the typedf enum in C
 
-        typedef enum planet_type {
-            ...
-        } planet_type;
-    */
-abstract class gas {
+class gas {
     var $num = 0;
     var $surf_pressure = 0.00;
 }
 
-abstract class sun {
+class sun {
     var $luminosity = 0.00;
     var $mass = 0.00;
     var $life = 0.00;
@@ -42,20 +36,20 @@ abstract class sun {
 }
 
 
-abstract class planets_record {
+class planet_record {
     var $planet_no = 0;
-    var $a;					                        /* semi-major axis of solar orbit (in AU)*/
-    var $e;					                        /* eccentricity of solar orbit		 */
-    var $axial_tilt;			                    /* units of degrees					 */
-    var $mass;				                        /* mass (in solar masses)			 */
-    var $gas_giant;			                        /* TRUE if the planet is a gas giant */
-    var $dust_mass;			                        /* mass, ignoring gas				 */
-    var $gas_mass;			                        /* mass, ignoring dust				 */
-                                            /*   ZEROES start here               */
-    var $moon_a;				                    /* semi-major axis of lunar orbit (in AU)*/
-    var $moon_e;				                    /* eccentricity of lunar orbit		 */
-    var $core_radius;		                        /* radius of the rocky core (in km)	 */
-    var $radius;				                    /* equatorial radius (in km)		 */
+    var $a;			        /* semi-major axis of solar orbit (in AU)       */
+    var $e;				/* eccentricity of solar orbit		        */
+    var $axial_tilt;			/* units of degrees			        */
+    var $mass;	                        /* mass (in solar masses)			*/
+    var $gas_giant;                     /* TRUE if the planet is a gas giant            */
+    var $dust_mass;                     /* mass, ignoring gas				*/
+    var $gas_mass;                      /* mass, ignoring dust				*/
+                                            /*   ZEROES start here                      */
+    var $moon_a;                    /* semi-major axis of lunar orbit (in AU)           */
+    var $moon_e;                    /* eccentricity of lunar orbit		        */
+    var $core_radius;               /* radius of the rocky core (in km)	                */
+    var $radius;	            /* equatorial radius (in km)		        */
     var $orbit_zone;			                    /* the 'zone' of the planet			 */
     var $density;			                        /* density (in g/cc)				 */
     var $orb_period;			                    /* length of the local year (days)	 */
@@ -83,76 +77,28 @@ abstract class planets_record {
     var $hydrosphere;		                        /* fraction of surface covered		 */
     var $cloud_cover;		                        /* fraction of surface covered		 */
     var $ice_cover;			                        /* fraction of surface covered		 */
-    var $sun = new sun();
+    var $sun;
     var $gases = 0;			                        /* Count of gases in the atmosphere: */
-    var $atmosphere = new gas();
-    var $type = new planet_type();  	            /* Type code						 */
+    var $atmosphere;
+    var $type;  	            /* Type code						 */
     var $minor_moons = 0;
     /*planet_pointer first_moon;*/
                                                 /*   ZEROES end here               */
     /*planet_pointer next_planet;*/
     var $planet_pointer = ['first_moon','next_planet'];
                                                 /*   ZEROES end here               */
-}
-
-abstract class planets_record {
-    var $planet_no = 0;
-    var $a = 0.00;					                /* semi-major axis of solar orbit (in AU)*/
-    var $e = 0.00;					                /* eccentricity of solar orbit		 */
-    var $axial_tilt = 0.00;			                /* units of degrees					 */
-    var $mass = 0.00;				                /* mass (in solar masses)			 */
-    var $gas_giant = 0;			                    /* TRUE if the planet is a gas giant */
-    var $dust_mass = 0.00;			                /* mass, ignoring gas				 */
-    var $gas_mass= 0.00;			                /* mass, ignoring dust				 */
-                                                
-                                                /*   ZEROES start here               */
-    var $moon_a = 0.00;	    			            /* semi-major axis of lunar orbit (in AU)*/
-    var $moon_e = 0.00;		    		            /* eccentricity of lunar orbit		 */
-    var $core_radius = 0.00;	    	            /* radius of the rocky core (in km)	 */
-    var $radius = 0.00; 				            /* equatorial radius (in km)		 */
-    var $orbit_zone = 0;    			            /* the 'zone' of the planet			 */
-    var $density = 0.00;	    		            /* density (in g/cc)				 */
-    var $orb_period = 0.00;			                /* length of the local year (days)	 */
-    var $day  = 0.00;				                /* length of the local day (hours)	 */
-    var $resonant_period = 0;	                    /* TRUE if in resonant rotation		 */
-    var $esc_velocity = 0.00;   		            /* units of cm/sec					 */
-    var $surf_accel  = 0.00;			            /* units of cm/sec2					 */
-    var $surf_grav = 0.00;			                /* units of Earth gravities			 */
-    var $rms_velocity  = 0.00;	    	            /* units of cm/sec					 */
-    var $molec_weight  = 0.00;		                /* smallest molecular weight retained*/
-    var $volatile_gas_inventory = 0.00;
-    var $surf_pressure = 0.00;		                /* units of millibars (mb)			 */
-    var $greenhouse_effect = 0;	                    /* runaway greenhouse effect?		 */
-    var $boil_point  = 0.00;			            /* the boiling point of water (Kelvin)*/
-    var $albedo  = 0.00;				            /* albedo of the planet				 */
-    var $exospheric_temp = 0.00;    	            /* units of degrees Kelvin			 */
-    var $estimated_temp  = 0.00;                    /* quick non-iterative estimate (K)  */
-    var $estimated_terr_temp = 0.00;                /* for terrestrial moons and the like*/
-    var $surf_temp = 0.00;			                /* surface temperature in Kelvin	 */
-    var $greenhs_rise = 0.00;		                /* Temperature rise due to greenhouse */
-    var $high_temp = 0.00;			                /* Day-time temperature              */
-    var $low_temp = 0.00;			                /* Night-time temperature			 */
-    var $max_temp = 0.00;			                /* Summer/Day						 */
-    var $min_temp = 0.00;			                /* Winter/Night						 */
-    var $hydrosphere = 0.00;		                /* fraction of surface covered		 */
-    var $cloud_cover = 0.00;		                /* fraction of surface covered		 */
-    var $ice_cover = 0.00;			                /* fraction of surface covered		 */
-    var $sun = new sun();
-    var $gases = 0;     				            /* Count of gases in the atmosphere: */
-    var $atmosphere = new gas();
-    var $type = new planet_type();				/* Type code						 */
-    var $minor_moons = 0;
-   /*planet_pointer first_moon;*/
-                                                /*   ZEROES end here               */
-    /*planet_pointer next_planet;*/
-    var $planet_pointer = ['first_moon','next_planet'];
-                                                /*   ZEROES end here               */        
+    public function __construct() {
+            $this->sun = new sun();
+            $this->atmosphere = new gas();
+            $this->type = new planet_type();
+    }
 }
 
 /*	Define the solar system for comparisons, etc. */
-#define ZEROES 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL,0,NULL,tUnknown
+define ('tUnknown', 0);
+define ('ZEROES', [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL,0,NULL,tUnknown]);
 
-abstract class dust_record {
+class dust_record {
     var $inner_edge = 0.00;
     var $outer_edge = 0.00;
     var $dust_present = 0;
@@ -178,10 +124,10 @@ abstract class catalog {
     var $stars = []; //place values as instances of star
 };
 
-abstract class gen  {
-    var $dust_pointer = ["dusts"];
-    var $planet_pointer = ["planets"];
-    var $gen_pointer = ["next"];
+class gen  {
+    var $dusts = [];
+    var $planets = [];
+    var $next = [];
 };
 
 // From Keris

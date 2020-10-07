@@ -7,17 +7,9 @@
 /*----------------------------------------------------------------------*/
 //Accrete/StarForm/StarGen adaptation by Pedro Heliodoro
 // Full credits here https://github.com/jarodium/StarGen/blob/master/Credits.txt
-#include	<stdio.h>
-#include	<stdlib.h>
-#include	<math.h>
-#include	"const.h"
-#include	"structs.h"
-#include 	"accrete.h"
-#include 	"stargen.h"
-#include 	"utils.h"
 
 /* Now for some variables global to the accretion process:	    */
-$dust_left = 0;
+$dust_left = false;
 $r_inner = 0.00;
 $r_outer = 0.00;
 $reduced_mass = 0.00;
@@ -29,52 +21,60 @@ $hist_head	= new gen(); //or create a class definition  since it's abstract?
 
 function set_initial_conditions($inner_limit_of_dust = 0.00, $outer_limit_of_dust = '')
 {
-  /*gen_pointer hist;
-  hist = (gen_pointer)malloc(sizeof(generation));
-  hist->dusts = dust_head;
-  hist->planets = planet_head;
-  hist->next = hist_head;
-  hist_head = hist;
-    
-	dust_head = (dust *)malloc(sizeof(dust));
-	planet_head = NULL;
-	dust_head->next_band = NULL;
-	dust_head->outer_edge = outer_limit_of_dust;
-	dust_head->inner_edge = inner_limit_of_dust;
-	dust_head->dust_present = TRUE;
-	dust_head->gas_present = TRUE;
-	dust_left = TRUE;
-	cloud_eccentricity = 0.2;*/
+	global $dust_head, $planet_head, $hist_head, $dust_left; 
+	
 	$hist = new gen();
-	$hist["dusts"] = "";
+	$hist->dusts = &$dust_head;
+	$hist->planets = &$planet_head;
+
+		/** Not quite sure why yet */
+	$hist->next = &$hist_head;
+
+	$hist_head = $hist;
+
+		//can't find any references to what struct variable dust refers to, but will assume a dust_record object
+	//dust_head = (dust *)malloc(sizeof(dust));
+	$dust_head->next_band = NULL;
+	$dust_head->outer_edge = $outer_limit_of_dust;
+	$dust_head->inner_edge = $inner_limit_of_dust;
+	$dust_head->dust_present = true;
+	$dust_head->gas_present = true;
+
+	$dust_left = true;
+	$cloud_eccentricity = 0.2;
+	$planet_head = NULL; //does not make any sense, why setting planet_head to null if there is an object to structure it?  	
 }
 
-/*long double stellar_dust_limit(long double stell_mass_ratio)
+function stellar_dust_limit($stell_mass_ratio)
 {
-	return(200.0 * pow(stell_mass_ratio,(1.0 / 3.0)));
+	return(200.0 * pow($stell_mass_ratio,(1.0 / 3.0)));
 }
 
-long double nearest_planet(long double stell_mass_ratio)
+function nearest_planet($stell_mass_ratio)
 {
-	return(0.3 * pow(stell_mass_ratio,(1.0 / 3.0)));
+	return(0.3 * pow($stell_mass_ratio,(1.0 / 3.0)));
 }
 
-long double farthest_planet(long double stell_mass_ratio)
+function farthest_planet($stell_mass_ratio)
 {
-	return(50.0 * pow(stell_mass_ratio,(1.0 / 3.0)));
+	return(50.0 * pow($stell_mass_ratio,(1.0 / 3.0)));
 }
 
-long double inner_effect_limit(long double a, long double e, long double mass)
+function inner_effect_limit($a,  $e,  $mass)
 {
-	return (a * (1.0 - e) * (1.0 - mass) / (1.0 + cloud_eccentricity));
+	global $cloud_eccentricity;
+
+	return ($a * (1.0 - $e) * (1.0 - $mass) / (1.0 + $cloud_eccentricity));
 }
 
-long double outer_effect_limit(long double a, long double e, long double mass)
+function outer_effect_limit($a, $e, $mass)
 {
-	return (a * (1.0 + e) * (1.0 + mass) / (1.0 - cloud_eccentricity));
+	global $cloud_eccentricity;
+
+	return ($a * (1.0 + $e) * (1.0 + $mass) / (1.0 - $cloud_eccentricity));
 }
 
-int dust_available(long double inside_range, long double outside_range)
+function dust_available($inside_range, $outside_range)
 {
 	dust_pointer current_dust_band;
 	int dust_here;
@@ -94,7 +94,7 @@ int dust_available(long double inside_range, long double outside_range)
 	return(dust_here);
 }
 
-void update_dust_lanes(long double min, long double max, long double mass, 
+function update_dust_lanes(long double min, long double max, long double mass, 
 					   long double crit_mass, long double body_inner_bound, 
 					   long double body_outer_bound)
 {
@@ -200,7 +200,7 @@ void update_dust_lanes(long double min, long double max, long double mass,
 	}
 }
 
-long double collect_dust(long double last_mass, long double *new_dust, 
+function double collect_dust(long double last_mass, long double *new_dust, 
 						 long double *new_gas,
 						 long double a, long double e, 
 						 long double crit_mass, dust_pointer dust_band)
