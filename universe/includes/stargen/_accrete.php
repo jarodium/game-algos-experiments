@@ -99,231 +99,231 @@ function dust_available($inside_range, $outside_range)
 
 function update_dust_lanes($min, $max, $mass, $crit_mass, $body_inner_bound, $body_outer_bound)
 {
-	int 			gas; 
-	dust_pointer	node1;
-	dust_pointer	node2;
-	dust_pointer	node3;
+	$gas; //empty? why? does it relate to gas in _structs?
 	
-	dust_left = FALSE;
-	if ((mass > crit_mass))
-		gas = FALSE;
+	$node1 = new dust_record();
+	$node2 = new dust_record();
+	$node3 = new dust_record();
+
+	
+	$dust_left = FALSE;
+	if (($mass > $crit_mass))
+		$gas = FALSE;
 	else 
-		gas = TRUE;
-	node1 = dust_head;
-	while ((node1 != NULL))
+		$gas = TRUE;
+	
+	//	node1 = dust_head;
+
+	while (($node1 != NULL))
 	{
-		if (((node1->inner_edge < min) && (node1->outer_edge > max)))
+		if ((($node1->inner_edge < $min) && ($node1->outer_edge > $max)))
 		{
-			node2 = (dust *)malloc(sizeof(dust));
-			node2->inner_edge = min;
-			node2->outer_edge = max;
-			if (node1->gas_present == TRUE)
-				node2->gas_present = gas;
+			//node2 = (dust *)malloc(sizeof(dust));
+			$node2->inner_edge = $min;
+			$node2->outer_edge = $max;
+			if ($node1->gas_present == TRUE)
+				$node2->gas_present = $gas;
 			else 
-				node2->gas_present = FALSE;
-			node2->dust_present = FALSE;
-			node3 = (dust *)malloc(sizeof(dust));
-			node3->inner_edge = max;
-			node3->outer_edge = node1->outer_edge;
-			node3->gas_present = node1->gas_present;
-			node3->dust_present = node1->dust_present;
-			node3->next_band = node1->next_band;
-			node1->next_band = node2;
-			node2->next_band = node3;
-			node1->outer_edge = min;
-			node1 = node3->next_band;
+				$node2->gas_present = FALSE;
+			
+			$node2->dust_present = FALSE;
+			//$node3 = (dust *)malloc(sizeof(dust));
+			
+			$node3->inner_edge = $max;
+			$node3->outer_edge = $node1->outer_edge;
+			$node3->gas_present = $node1->gas_present;
+			$node3->dust_present = $node1->dust_present;
+			$node3->next_band = $node1->next_band;
+			$node1->next_band = $node2;
+			$node2->next_band = $node3;
+			$node1->outer_edge = min;
+			$node1 = $node3->next_band;
 		}
 		else 
-			if (((node1->inner_edge < max) && (node1->outer_edge > max)))
+			if ((($node1->inner_edge < $max) && ($node1->outer_edge > $max)))
 			{
-				node2 = (dust *)malloc(sizeof(dust));
-				node2->next_band = node1->next_band;
-				node2->dust_present = node1->dust_present;
-				node2->gas_present = node1->gas_present;
-				node2->outer_edge = node1->outer_edge;
-				node2->inner_edge = max;
-				node1->next_band = node2;
-				node1->outer_edge = max;
-				if (node1->gas_present == TRUE)
-					node1->gas_present = gas;
+				//node2 = (dust *)malloc(sizeof(dust));
+				$node2->next_band = $node1->next_band;
+				$node2->dust_present = $node1->dust_present;
+				$node2->gas_present = $node1->gas_present;
+				$node2->outer_edge = $node1->outer_edge;
+				$node2->inner_edge = $max;
+				$node1->next_band = $node2;
+				$node1->outer_edge = $max;
+				if ($node1->gas_present == TRUE)
+					$node1->gas_present = $gas;
 				else 
-					node1->gas_present = FALSE;
-				node1->dust_present = FALSE;
-				node1 = node2->next_band;
+					$node1->gas_present = FALSE;
+				$node1->dust_present = FALSE;
+				$node1 = $node2->next_band;
 			}
 			else 
-				if (((node1->inner_edge < min) && (node1->outer_edge > min)))
+				if ((($node1->inner_edge < $min) && ($node1->outer_edge > $min)))
 				{
-					node2 = (dust *)malloc(sizeof(dust));
-					node2->next_band = node1->next_band;
-					node2->dust_present = FALSE;
-					if (node1->gas_present == TRUE)
-						node2->gas_present = gas;
+					//node2 = (dust *)malloc(sizeof(dust));
+					$node2->next_band = $node1->next_band;
+					$node2->dust_present = FALSE;
+					if ($node1->gas_present == TRUE)
+						$node2->gas_present = $gas;
 					else 
-						node2->gas_present = FALSE;
-					node2->outer_edge = node1->outer_edge;
-					node2->inner_edge = min;
-					node1->next_band = node2;
-					node1->outer_edge = min;
-					node1 = node2->next_band;
+						$node2->gas_present = FALSE;
+					$node2->outer_edge = $node1->outer_edge;
+					$node2->inner_edge = $min;
+					$node1->next_band = $node2;
+					$node1->outer_edge = $min;
+					$node1 = $node2->next_band;
 				}
 				else 
-					if (((node1->inner_edge >= min) && (node1->outer_edge <= max)))
+					if ((($node1->inner_edge >= $min) && ($node1->outer_edge <= $max)))
 					{
-						if (node1->gas_present == TRUE)
-							node1->gas_present = gas;
-						node1->dust_present = FALSE;
-						node1 = node1->next_band;
+						if ($node1->gas_present == TRUE)
+							$node1->gas_present = $gas;
+						$node1->dust_present = FALSE;
+						$node1 = $node1->next_band;
 					}
 					else 
-						if (((node1->outer_edge < min) || (node1->inner_edge > max)))
-							node1 = node1->next_band;
+						if ((($node1->outer_edge < $min) || ($node1->inner_edge > $max)))
+							$node1 = $node1->next_band;
 	}
-	node1 = dust_head;
-	while ((node1 != NULL))
+	$node1 = new dust_record();
+	while (($node1 != NULL))
 	{
-		if (((node1->dust_present)
-			&& (((node1->outer_edge >= body_inner_bound)
-				&& (node1->inner_edge <= body_outer_bound)))))
-			dust_left = TRUE;
-		node2 = node1->next_band;
-		if ((node2 != NULL))
+		if ((($node1->dust_present) && ((($node1->outer_edge >= $body_inner_bound) && ($node1->inner_edge <= $body_outer_bound)))))
+			$dust_left = TRUE;
+		$node2 = $node1->next_band;
+		if (($node2 != NULL))
 		{
-			if (((node1->dust_present == node2->dust_present)
-				&& (node1->gas_present == node2->gas_present)))
+			if ((($node1->dust_present == $node2->dust_present) && ($node1->gas_present == $node2->gas_present)))
 			{
-				node1->outer_edge = node2->outer_edge;
-				node1->next_band = node2->next_band;
-				free(node2);
+				$node1->outer_edge = $node2->outer_edge;
+				$node1->next_band = $node2->next_band;
+				unset($node2);
 			}
 		}
-		node1 = node1->next_band;
+		$node1 = $node1->next_band;
 	}
 }
 
-function double collect_dust(long double last_mass, long double *new_dust, 
-						 long double *new_gas,
-						 long double a, long double e, 
-						 long double crit_mass, dust_pointer dust_band)
-{
-	long double	mass_density;
-	long double	temp1;
-	long double	temp2;
-	long double	temp;
-	long double	temp_density;
-	long double	bandwidth;
-	long double	width;
-	long double	volume;
-	long double	gas_density = 0.0;
-	long double	new_mass;
-	long double	next_mass;
-	long double	next_dust = 0;
-	long double	next_gas = 0;
+function collect_dust($last_mass, &$new_dust, &$new_gas, $a, $e, $crit_mass, &$dust_band) {
+	$mass_density;
+	$temp1;
+	$temp2;
+	$temp;
+	$temp_density;
+	$bandwidth;
+	$width;
+	$volume;
+	$gas_density = 0.0;
+	$new_mass;
+	$next_mass;
+	$next_dust = 0;
+	$next_gas = 0;
 			
 	
-	temp = last_mass / (1.0 + last_mass);
-	reduced_mass = pow(temp,(1.0 / 4.0));
-	r_inner = inner_effect_limit(a, e, reduced_mass);
-	r_outer = outer_effect_limit(a, e, reduced_mass);
+	$temp = $last_mass / (1.0 + $last_mass);
+	$reduced_mass = pow($temp,(1.0 / 4.0));
+	$r_inner = inner_effect_limit($a, $e, $reduced_mass);
+	$r_outer = outer_effect_limit($a, $e, $reduced_mass);
 	
-	if ((r_inner < 0.0))
-		r_inner = 0.0;
+	if (($r_inner < 0.0))
+		$r_inner = 0.0;
 	
-	if (dust_band == NULL)
+	if ($dust_band == NULL)
 		return(0.0);
 	else 
 	{
-		if (dust_band->dust_present == FALSE)
-			temp_density = 0.0;
+		if ($dust_band->dust_present == FALSE)
+			$temp_density = 0.0;
 		else 
-			temp_density = dust_density;
+			$temp_density = $dust_density;
 			
-		if (((last_mass < crit_mass) || (dust_band->gas_present == FALSE)))
-			mass_density = temp_density;
+		if ((($last_mass < $crit_mass) || ($dust_band->gas_present == FALSE)))
+			$mass_density = $temp_density;
 		else
 		{
-			mass_density = K * temp_density / (1.0 + sqrt(crit_mass / last_mass)
-										* (K - 1.0));
-			gas_density = mass_density - temp_density;
+			$mass_density = K * $temp_density / (1.0 + sqrt($crit_mass / $last_mass) * (K - 1.0));
+			$gas_density = $mass_density - $temp_density;
 		}
 		
-		if (((dust_band->outer_edge <= r_inner)
-		  || (dust_band->inner_edge >= r_outer)))
+		if ((($dust_band->outer_edge <= $r_inner)
+		  || ($dust_band->inner_edge >= $r_outer)))
 		{
-			return(collect_dust(last_mass, new_dust, new_gas,
-								a,e,crit_mass, dust_band->next_band));
+			return(collect_dust($last_mass, $new_dust, $new_gas, $a,$e, $crit_mass, $dust_band->next_band));
 		}
 		else
 		{
-			bandwidth = (r_outer - r_inner);
+			$bandwidth = ($r_outer - $r_inner);
 			
-			temp1 = r_outer - dust_band->outer_edge;
-			if (temp1 < 0.0)
-				temp1 = 0.0;
-			width = bandwidth - temp1;
+			$temp1 = $r_outer - $dust_band->outer_edge;
+			if ($temp1 < 0.0)
+				$temp1 = 0.0;
+			$width = $bandwidth - $temp1;
 			
-			temp2 = dust_band->inner_edge - r_inner;
-			if (temp2 < 0.0)
-				temp2 = 0.0;
-			width = width - temp2;
+			$temp2 = $dust_band->inner_edge - $r_inner;
+			if ($temp2 < 0.0)
+				$temp2 = 0.0;
+			$width = $width - $temp2;
 			
-			temp = 4.0 * PI * pow(a,2.0) * reduced_mass
-				* (1.0 - e * (temp1 - temp2) / bandwidth);
-			volume = temp * width;
+			$temp = 4.0 * PI * pow(a,2.0) * $reduced_mass * (1.0 - e * ($temp1 - $temp2) / $bandwidth);
+			$volume = $temp * $width;
 
-			new_mass  = volume * mass_density;
-			*new_gas  = volume * gas_density;
-			*new_dust = new_mass - *new_gas;
+			$new_mass  = $volume * $mass_density;
+				/**
+				 * What these two lines mean in C?
+				 */
+			//*new_gas  = volume * gas_density;
+			//*new_dust = new_mass - *new_gas;
+
+			$new_gas  = $volume * $gas_density;
+			$new_dust = $new_mass - $new_gas;
 			
-			next_mass = collect_dust(last_mass, &next_dust, &next_gas,
-									 a,e,crit_mass, dust_band->next_band);
-			
-			*new_gas  = *new_gas + next_gas;
-			*new_dust = *new_dust + next_dust;
-			
-			return(new_mass + next_mass);
+			$next_mass = collect_dust($last_mass, $next_dust, $next_gas, $a,$e,$crit_mass, $dust_band->next_band);
+				/**
+				 * What these two lines mean in C?
+				 */
+			//*new_gas  = *new_gas + next_gas;
+			//*new_dust = *new_dust + next_dust;
+			$new_gas  = $new_gas + $next_gas;
+			$new_dust = $new_dust + $next_dust;
+			return $new_mass + $next_mass;
 		}
 	}
-}*/
+}
 
 
-/*--------------------------------------------------------------------------*/
-/*	 Orbital radius is in AU, eccentricity is unitless, and the stellar		*/
+/*------------------------------------------------------------------------------*/
+/*	Orbital radius is in AU, eccentricity is unitless, and the stellar	*/
 /*	luminosity ratio is with respect to the sun.  The value returned is the */
 /*	mass at which the planet begins to accrete gas as well as dust, and is	*/
 /*	in units of solar masses.												*/
-/*--------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------*/
 
-/*long double critical_limit(long double orb_radius, long double eccentricity, 
-						   long double stell_luminosity_ratio)
+function critical_limit($orb_radius, $eccentricity, $stell_luminosity_ratio)
 {
-	long double	temp;
-	long double	perihelion_dist;
+	$temp;
+	$perihelion_dist;
 	
-	perihelion_dist = (orb_radius - orb_radius * eccentricity);
-	temp = perihelion_dist * sqrt(stell_luminosity_ratio);
-	return(B * pow(temp,-0.75));
+	$perihelion_dist = ($orb_radius - $orb_radius * $eccentricity);
+	$temp = $perihelion_dist * sqrt($stell_luminosity_ratio);
+	return(B * pow($temp,-0.75));
 }
 
 
 
-void accrete_dust(long double *seed_mass, long double *new_dust, long double *new_gas,
-				  long double a, long double e, long double crit_mass,
-				  long double body_inner_bound, long double body_outer_bound)
+function accrete_dust($seed_mass, &$new_dust, &$new_gas, $a, $e, $crit_mass, $body_inner_bound, $body_outer_bound)
 {
-	long double	new_mass = (*seed_mass);
-	long double	temp_mass;
+	$new_mass = $seed_mass;
+	$temp_mass;
 	
 	do
 	{
-		temp_mass = new_mass;
-		new_mass = collect_dust(new_mass, new_dust, new_gas, 
-								a,e,crit_mass, dust_head);
+		$temp_mass = $new_mass;
+		$new_mass = collect_dust($new_mass, $new_dust, $new_gas, $a,$e,$crit_mass, $dust_head);
 	}
-	while (!(((new_mass - temp_mass) < (0.0001 * temp_mass))));
+	while (!((($new_mass - $temp_mass) < (0.0001 * $temp_mass))));
 	
-	(*seed_mass) = (*seed_mass) + new_mass;
-	update_dust_lanes(r_inner,r_outer,(*seed_mass),crit_mass,body_inner_bound,body_outer_bound);
+	$seed_mass = $seed_mass + $new_mass;
+	update_dust_lanes($r_inner,$r_outer,($seed_mass),$crit_mass,$body_inner_bound,$body_outer_bound);
 }
 
 
@@ -586,7 +586,7 @@ void coalesce_planetesimals(long double a, long double e, long double mass, long
 }
 
 
-planet_pointer dist_planetary_masses(long double stell_mass_ratio,
+/*planet_pointer dist_planetary_masses(long double stell_mass_ratio,
 									 long double stell_luminosity_ratio, 
 									 long double inner_dust, 
 									 long double outer_dust,

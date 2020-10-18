@@ -82,7 +82,7 @@
                         $nome = $UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["abbr"]." " .$UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["name"].($this->rollit("D6") < 6 ? "a" : "b");
                         
                         if (mkdir(dirname(__DIR__)."/data/sistemas/".$pasta,0777)) {
-                            exec("stargen ".str_replace(["{P}","{MA}"],[$pasta,$ma],implode(" ",$parametros_stargen))." \"".$nome."\"",$k);
+                            //exec("stargen ".str_replace(["{P}","{MA}"],[$pasta,$ma],implode(" ",$parametros_stargen))." \"".$nome."\"",$k);
                         }
                     }
                 }
