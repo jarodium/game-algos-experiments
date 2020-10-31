@@ -29,15 +29,14 @@
         }
 
 
-        public function construir() {
-            
-            $constelacoes = json_decode(file_get_contents(dirname(__DIR__)."/data/constelacoes.json"),true);
-            //inicializar o mapa de onde colocar as constelações
-                //as constelações já possuem 144 elementos para ter 12x12 sectores
+        public function construir($universe_file,$universe_sectors_file) {
+            $constelacoes = json_decode(file_get_contents(__DIR__."/data/CONSTELLATIONS.json"),true);
+            //initialize the constellation map
+                //constellations have 144 elements in order to fit a 12x12 sector grid
             $UNIV = [];   
             for ($BBI=0; $BBI < $this->eixos; $BBI++) {
                 for ($BBJ=0; $BBJ < $this->eixos; $BBJ++) {                               
-                    //correr todos os sectores 
+                    //loop through all sectors
                     
                     shuffle($constelacoes);
                     $nome = array_shift($constelacoes);
@@ -45,9 +44,9 @@
                     $UNIV[$BBI][$BBJ] = $nome;
                 }
             }
-            file_put_contents(dirname(__DIR__)."/data/UNIVERSO.json",json_encode($UNIV));
+            file_put_contents($universe_file,json_encode($UNIV));
             
-            //saber quantos sistemas vamos criar por cada tipo
+            //how many galaxies of each type we will be generating
             $SECTORES = [];
             //barred spiral
             $SECTORES[] = $this->criarSistemas($this->rollit("D8",-7),"BSPI","gigas");
@@ -65,12 +64,9 @@
             $SECTORES[] = $this->criarSistemas($this->rollit("8D20",20),"OC","major");
             
             
-            file_put_contents(dirname(__DIR__)."/data/SECTORES.json",json_encode($SECTORES));
+            file_put_contents($universe_sectors_file,json_encode($SECTORES));
             
-            //criar os sistemas planetários com recurso ao stargen
-            $parametros_stargen = ["-m{MA}","-n1","-e","-p ".dirname(__DIR__)."/data/sistemas/{P}"];
-            $ficheiros = [];
-            
+            //criar os sistemas planetários com recurso ao stargen                       
             foreach($SECTORES as $TIPO => $SUBTIPO) {
                 if (count($SUBTIPO) > 0) {
                     foreach($SUBTIPO as $SISTEMA) {
@@ -79,11 +75,8 @@
                        
                         $pasta = $SISTEMA["id"];
                         
-                        $nome = $UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["abbr"]." " .$UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["name"].($this->rollit("D6") < 6 ? "a" : "b");
-                        
-                        if (mkdir(dirname(__DIR__)."/data/sistemas/".$pasta,0777)) {
-                            //exec("stargen ".str_replace(["{P}","{MA}"],[$pasta,$ma],implode(" ",$parametros_stargen))." \"".$nome."\"",$k);
-                        }
+                        $nome = $UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["abbr"]." " .$UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["name"]."-".($this->rollit("D6") < 6 ? "a" : "b");
+                                                                        
                     }
                 }
             }
@@ -91,9 +84,9 @@
         
         public function __construct() {
                 //por um worker que devolve a posicção dos clusters
-            $this->CLUSTERS = json_decode(file_get_contents(dirname(__DIR__)."/data/UNIVERSO.json"),true);
+            //$this->CLUSTERS = json_decode(file_get_contents(dirname(__DIR__)."/data/UNIVERSO.json"),true);
                 //por um worker que devolve a posicção do sector
-            $this->SECTORES = json_decode(file_get_contents(dirname(__DIR__)."/data/SECTORES.json"),true);
+            //$this->SECTORES = json_decode(file_get_contents(dirname(__DIR__)."/data/SECTORES.json"),true);
         }
         
         
