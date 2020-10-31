@@ -328,11 +328,7 @@ function accrete_dust($seed_mass, &$new_dust, &$new_gas, $a, $e, $crit_mass, $bo
 
 
 
-void coalesce_planetesimals(long double a, long double e, long double mass, long double crit_mass,
-							long double dust_mass, long double gas_mass,
-							long double stell_luminosity_ratio,
-							long double body_inner_bound, long double body_outer_bound,
-							int			do_moons)
+function coalesce_planetesimals($a, $e, $mass, $crit_mass, $dust_mass, $gas_mass, $stell_luminosity_ratio, $body_inner_bound, $body_outer_bound, $do_moons)
 {
 	planet_pointer	the_planet;
 	planet_pointer	next_planet;
