@@ -12,11 +12,56 @@
     },
     "yellow_dwarf": {
         "type": "G",
+        "temp": "3700-5200",
+        "lum": "0.08-0.6",
+        "rad": "0.7-9.6",
+        "mass": "0.45-0.8",
+        "age": "15B-30B",
+        "elements": []
+    },
+    "orange_dwarf": {
+        "type": "K",
         "temp": "5200-7500",
         "lum": "0.6-5.0",
         "rad": "0.96-1.4",
         "mass": "0.8-1.4",
         "age": "4B-17B",
+        "elements": []
+    },
+    "red_dwarf": {
+        "type": "K,M",
+        "temp": "4000",
+        "lum": "0.0001-0.8",
+        "rad": "0.7",
+        "mass": "0.8-0.45",
+        "age": "1T",
+        "elements": []
+    },
+    "blue_giant": {
+        "type": "O,B,A",
+        "temp": "10000-33000",
+        "lum": "10000",
+        "rad": "5-10",
+        "mass": "2-150",
+        "age": "10M-100M",
+        "elements": []
+    },
+    "super_blue_giant": {
+        "type": "O,B",
+        "temp": "10000-50000",
+        "lum": "10000-1000000",
+        "rad": "20-4000",
+        "mass": "20-1000",
+        "age": "10M",
+        "elements": []
+    },
+    "red_giant": {
+        "type": "M,K",
+        "temp": "3300-5300",
+        "lum": "100-1000",
+        "rad": "20-100",
+        "mass": "0.3-10",
+        "age": "0.1B-2B",
         "elements": []
     }
 }
