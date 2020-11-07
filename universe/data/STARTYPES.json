@@ -1,0 +1,22 @@
+{
+    "blue_star": {
+        "type": "O,B",
+        "temp": 30000,
+        "lum": "100-10000",
+        "rad": "2.7-10",
+        "mass": "2.5-90",
+        "age": "40M",
+        "elements": [{
+            "element": "2He"
+        }]
+    },
+    "yellow_dwarf": {
+        "type": "G",
+        "temp": "5200-7500",
+        "lum": "0.6-5.0",
+        "rad": "0.96-1.4",
+        "mass": "0.8-1.4",
+        "age": "4B-17B",
+        "elements": []
+    }
+}

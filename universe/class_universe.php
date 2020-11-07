@@ -1,6 +1,6 @@
 <?php
     use Ethtezahl\DiceRoller\CupFactory;
-    class universo {
+    class universe {
         protected $eixos = 12; //queremos registar 12 x 12 sectores
         private $CLUSTERS = [];
         private $SECTORES = [];
@@ -77,22 +77,7 @@
                         
                         $nome = $UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["abbr"]." " .$UNIV[$SISTEMA["posX"]][$SISTEMA["posY"]]["name"]."-".($this->rollit("D6") < 6 ? "a" : "b");
                         
-                        /**
-                         * Atempting to populate X planets in this system
-                         * 3 planets is the minimum 12 is the maximum
-                         */
-                        /**
-                         * To figure out how many planets we'll use 5 20-sided dice to see how many planets this system will have
-                         * for 0 3 to 12 seek value
-                         * sort the maximum value out and generate that many planets
-                         */
-                        /**
-                         * 0 assumess gas cloud formation
-                         */
-                        /**
-                         * Star System formation 
-                         *  - Roll 10 6-side dice to determine star type
-                         */
+                       
                     }
                 }
             }
