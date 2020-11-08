@@ -63,5 +63,59 @@
         "mass": "0.3-10",
         "age": "0.1B-2B",
         "elements": []
+    },
+    "red_super_giant": {
+        "type": "K,M",
+        "temp": "3500-4500",
+        "lum": "1000-800000",
+        "rad": "10-1650",
+        "mass": "10-40",
+        "age": "3M-100M",
+        "elements": []
+    },
+    "white_dwarf": {
+        "type": "D",
+        "temp": "8000-4000",
+        "lum": "0.0001-100",
+        "rad": "0.008-0.2",
+        "mass": "0.1-1.4",
+        "age": "100M-10B",
+        "elements": []
+    },
+    "neutron": {
+        "type": "D",
+        "temp": "600000",
+        "lum": "0.0001",
+        "rad": "0.0005-0.0015",
+        "mass": "0.1-1.4",
+        "age": "100M-10B",
+        "elements": []
+    },
+    "blackhole": {
+        "type": "0",
+        "temp": "0",
+        "lum": "0",
+        "rad": "1000-800000",
+        "mass": "0",
+        "age": "0",
+        "elements": []
+    },
+    "super_blackhole": {
+        "type": "0",
+        "temp": "0",
+        "lum": "0",
+        "rad": "10000-8000000",
+        "mass": "0",
+        "age": "0",
+        "elements": []
+    },
+    "brown_dwarf": {
+        "type": "M,L,T,Y",
+        "temp": "300-2800",
+        "lum": "0.00001",
+        "rad": "0.06-0.12",
+        "mass": "0.01-0.08",
+        "age": "1T",
+        "elements": []
     }
 }
