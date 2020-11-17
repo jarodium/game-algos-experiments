@@ -6,7 +6,7 @@ Experimenting game related algorimths
 
 
 Todo list
-- [] Filling out Star Types
+- [x] Filling out Star Types
 - [] Generate star and planets generation rules
 
 Credits:

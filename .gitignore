@@ -3,3 +3,5 @@ _workspace*
 vendor/*
 chavegit
 chavegit.pub
+vendor/ethtezahl/dice-roller
+vendor/ajf/typed-arrays
