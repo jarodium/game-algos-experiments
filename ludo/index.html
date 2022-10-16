@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="reset.css" rel="stylesheet">    
+    <link href="board.css" rel="stylesheet">    
+</head>
+
+<body>
+    <div class="board  loaded">
+        <div class="home"></div>
+        <div class="base r ">
+            <div class="inner">
+                <div class="token red animate__animated animate__tada"> </div>
+                <div class="token red animate__animated animate__tada"> </div>
+                <div class="token red animate__animated animate__tada"> </div>
+                <div class="token red animate__animated animate__tada"> </div>
+            </div>
+        </div>
+        <div class="base g">
+            <div class="inner ">
+                <div class="token green animate__animated animate__tada"> </div>
+                <div class="token green animate__animated animate__tada"> </div>
+                <div class="token green animate__animated animate__tada"> </div>
+                <div class="token green animate__animated animate__tada"> </div>
+            </div>
+        </div>
+        <div class="base y">
+            <div class="inner  ">
+                <div class="token yellow animate__animated animate__tada"> </div>
+                <div class="token yellow animate__animated animate__tada"> </div>
+                <div class="token yellow animate__animated animate__tada"> </div>
+                <div class="token yellow animate__animated animate__tada"> </div>
+            </div>
+        </div>
+        <div class="base b">
+            <div class="inner ">
+                <div class="token blue animate__animated animate__tada"> </div>
+                <div class="token blue animate__animated animate__tada"> </div>
+                <div class="token blue animate__animated animate__tada"> </div>
+                <div class="token blue animate__animated animate__tada"> </div>
+            </div>
+        </div>
+
+        <div class="cell race-1 start-r " title="1"></div>
+        <div class="cell race-2" title="2"></div>
+        <div class="cell race-3" title="3"></div>
+        <div class="cell race-4" title="4"></div>
+        <div class="cell race-5" title="5"></div>
+        <div class="cell race-6" title="6"></div>
+        <div class="cell race-7" title="7"></div>
+        <div class="cell race-8" title="8"></div>
+        <div class="cell race-9" title="9"></div>
+        <div class="cell race-10" title="10"></div>
+        <div class="cell race-11" title="11"></div>
+        <div class="cell race-12 end-g" title="12"></div>
+        <div class="cell race-13" title="13"></div>
+        <div class="cell race-14 start-g" title="14"></div>
+        <div class="cell race-15" title="15"></div>
+        <div class="cell race-16" title="16"></div>
+        <div class="cell race-17" title="17"></div>
+        <div class="cell race-18" title="18"></div>
+        <div class="cell race-19" title="19"></div>
+        <div class="cell race-20" title="20"></div>
+        <div class="cell race-21" title="21"></div>
+        <div class="cell race-22" title="22"></div>
+        <div class="cell race-23" title="23"></div>
+        <div class="cell race-24" title="24"></div>
+        <div class="cell race-25 end-y" title="25"></div>
+        <div class="cell race-26" title="26"></div>
+        <div class="cell race-27 start-y" title="27"></div>
+        <div class="cell race-28" title="28"></div>
+        <div class="cell race-29" title="29"></div>
+        <div class="cell race-30" title="30"></div>
+        <div class="cell race-31" title="31"></div>
+        <div class="cell race-32" title="32"></div>
+        <div class="cell race-33" title="33"></div>
+        <div class="cell race-34" title="34"></div>
+        <div class="cell race-35" title="35"></div>
+        <div class="cell race-36" title="36"></div>
+        <div class="cell race-37" title="37"></div>
+        <div class="cell race-38   end-b" title="38"></div>
+        <div class="cell race-39" title="39"></div>
+        <div class="cell race-40 start-b " title="40"></div>
+        <div class="cell race-41" title="41"></div>
+        <div class="cell race-42" title="42"></div>
+        <div class="cell race-43" title="43"></div>
+        <div class="cell race-44" title="44"> </div>
+        <div class="cell race-45" title="45"></div>
+        <div class="cell race-46" title="46"></div>
+        <div class="cell race-47" title="47"></div>
+        <div class="cell race-48" title="48">
+            <!--<div class="inner">-->
+                <!--<div class="token blue animate__animated animate__tada"> </div>
+                <div class="token blue animate__animated animate__tada"> </div>
+                <div class="token green animate__animated animate__tada"> </div>-->
+            <!--</div>-->
+        </div>
+        <div class="cell race-49" title="49"></div>
+        <div class="cell race-50" title="50"></div>
+        <div class="cell race-51 end-r" title="51"></div>
+        <div class="cell race-52" title="52"></div>
+
+        <div class="r final">
+            <div class="cell r-f-1 " title="1"> </div>
+            <div class="cell r-f-2 " title="2"> </div>
+            <div class="cell r-f-3 " title="3"> </div>
+            <div class="cell r-f-4 " title="4"> </div>
+            <div class="cell r-f-5 " title="5"> </div>
+            <div class="cell r-f-6 transparent" title="6"> </div>
+        </div>
+        <div class="g final">
+            <div class="cell g-f-1 " title="1"> </div>
+            <div class="cell g-f-2 " title="2"> </div>
+            <div class="cell g-f-3 " title="3"> </div>
+            <div class="cell g-f-4 " title="4"> </div>
+            <div class="cell g-f-5 " title="5"> </div>
+            <div class="cell g-f-6 transparent " title="6"> </div>
+        </div>
+        <div class="y final">
+            <div class="cell y-f-6 transparent " title="6"> </div>
+            <div class="cell y-f-5 " title="5"> </div>
+            <div class="cell y-f-4 " title="4"> </div>
+            <div class="cell y-f-3 " title="3"> </div>
+            <div class="cell y-f-2 " title="2"> </div>
+            <div class="cell y-f-1 " title="1"> </div>
+        </div>
+        <div class="b final">
+            <div class="cell b-f-6 transparent " title="6"> </div>
+            <div class="cell b-f-5 " title="5"> </div>
+            <div class="cell b-f-4 " title="4"> </div>
+            <div class="cell b-f-3 " title="3"> </div>
+            <div class="cell b-f-2 " title="2"> </div>
+            <div class="cell b-f-1 " title="1"> </div>
+        </div>
+    </div>
+
+    <div class="dice animate__animated ">
+        <div class="face-1 show">
+            <span class="pip"></span>
+        </div>
+        <div class="face-2 ">
+            <span class="pip"></span>
+            <span class="pip"></span>
+        </div>
+        <div class=" face-3 ">
+            <span class="pip"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
+        </div>
+        <div class="face-4 ">
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+        </div>
+        <div class="face-5 ">
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+            <div class="col">
+                <span class="pip"></span>
+            </div>
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+        </div>
+        <div class="face-6 ">
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+            <div class="col">
+                <span class="pip"></span>
+                <span class="pip"></span>
+                <span class="pip"></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="droll.min.js"></script>
+<script src="eventEmitter.js"></script>
+<script src="jogo.js"></script>
+<script src="jquery-3.6.1.slim.min.js"></script>
+<script>    
+    let JOGO = new GAME({
+        //safeZones: [9],        
+        startPlayer: 'r'
+    });
+
+    JOGO.on("gameOver",(data) => {
+        alert("game over");
+    })
+
+    JOGO.on("allowedToDeploy",(data) => {
+        $(".base."+data.playerColor+" .token").addClass("active").on("click",function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            $(this).siblings().addBack().removeClass("active");
+            $(this).off("click");
+
+            JOGO.deploy($(this).get(0));
+        });
+    });
+    JOGO.on("allowedToMove",(data) => {
+        //TODO
+            //add active classe to all red cells and a click event to move cells
+        console.log(data);
+        
+        data.selectCellsAtTrackRaces.forEach(el => {                
+            $(".cell.race-"+el+" ."+data.playerPipColor).addClass("active").on("click",function() {
+                $(".cell .token."+data.playerPipColor).removeClass("active").off("click");
+
+                JOGO.move($(this).get(0),data.diceValue);
+            })
+        });
+
+        data.selectCellsAtTrackFinal.forEach(el => {
+            console.log("class final",".cell."+data.playerColor+"-f-"+el+" .token");
+
+            $(".cell."+data.playerColor+"-f-"+el+" .token").addClass("active").on("click",function() {
+                $(".cell .token."+data.playerPipColor).removeClass("active").off("click");                            
+
+                JOGO.move($(this).get(0),data.diceValue);
+            });
+        });
+            
+    });
+
+    $(function() {        
+        $(".dice").on("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            var result = droll.roll('1d6');
+            $(".dice .show").removeClass("show");
+            $(".dice .face-" + result.total).addClass("show");
+            
+            //JOGO.play(result);              
+            JOGO.play(Number(result));
+            
+        });
+
+        
+    })
+</script>
+
+</html>

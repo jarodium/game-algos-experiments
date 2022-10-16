@@ -5,6 +5,42 @@
                 private $rad_percentage;
                 private $mass_percentage;
 
+                private function shuffle_assoc($my_array)       {
+                        $keys = array_keys($my_array);
+                        shuffle($keys);
+
+                        foreach($keys as $key) {
+                                $new[$key] = $my_array[$key];
+                        }
+
+                        $my_array = $new;
+
+                        return $my_array;
+                }
+
+                private function array_shift_assoc_kv( &$arr ){
+                        $val = reset( $arr );
+                        $key = key( $arr );
+                        $ret = array( $key => $val );
+                        unset( $arr[ $key ] );
+                        return $ret; 
+                }
+
+                private function getRandomFromLimit($text) {
+                        //This function finds a random number between X-Y given by $text
+                        //If no limit is found, $text is returned as is
+                        if (strpos($text,"-") !== false) {
+                                $x = explode("-",$text);
+                                if (strpos($x[0],".") || strpos($x[1],".")) {
+                                        return mt_rand ($x[0]*100, $x[1]*100) / 100;
+                                }
+                                return mt_rand($x[0],$x[1]);
+                        }
+                        else {
+                                return (int)$text;
+                        }
+                }
+
                 function __construct() {
                         /**
                          * Create a seed
@@ -48,12 +84,30 @@
                         /**
                          *      Reads a star system type from the data file
                          */
-
+                        $star_types = json_decode(file_get_contents(__DIR__."/data/STARTYPES.json"),true);
+                        $star_types = $this->shuffle_assoc($star_types);
+                        
+                        $star_chosen = $this->array_shift_assoc_kv($star_types);    
+                        
+                        $chave = array_keys($star_chosen)[0];                        
                         /**
                          *      If the percentage is negative, then the percentage is multiplied 
                          *      by 100 and multiplied by 0.5 ( TGT_PERC )
-                         */
+                         */                                                
+                        if ($this->temp_percentage < 0.00) 
+                                $this->temp_percentage = $this->temp_percentage * -1;
+                        
+                        if ($this->lum_percentage < 0.00) 
+                                $this->lum_percentage = $this->lum_percentage * -1;                                                
+                        
+                        $random = $this->getRandomFromLimit($star_chosen[$chave]["temp"]);
+                        $star_effective_temperature = round(($random / $this->temp_percentage));
 
+                                //lum randoming often gives up some insane values
+                                // when limit is like 0.08-0.6
+                        $random = $this->getRandomFromLimit($star_chosen[$chave]["lum"]);
+                        $star_effective_lum = round(($random / $this->lum_percentage));
+                                                
                         /**
                          *      If an attribute has a range defined, we randomize a number inside that range
                          *      and apply the below ( HND_PERC )
