@@ -69,8 +69,7 @@ class GAME extends EventEmitter {
                 this.emit('allowedToDeploy',{
                     playerColor : this.getPlayerColor()
                 });
-                //console.log("go")
-                    //this.deploy();
+                //this.deploy();
             } else {                
                 this.canMove();
             }
@@ -161,7 +160,7 @@ class GAME extends EventEmitter {
         }
         else {
             //se não
-            console.log("nextcell < playerBase Cell");            
+            console.log("nextcell < playerBase Cell");
                 //verificar se está a entrar para a faixa verde
             if (nextCell > playerFinalCell) {
                 console.log("nextcell entrando na faixa final");            
@@ -238,7 +237,10 @@ class GAME extends EventEmitter {
         else {
             //this.endPlay();
             //console.log("no pips to move");
-            this.nextPlayer();
+            setTimeout(function() {
+                this.nextPlayer();
+            }.bind(this), 1500);
+
         }
           
     }
@@ -334,17 +336,20 @@ class GAME extends EventEmitter {
                 });
                     //if so
                 if (match) {
-                    //console.log("is a cell race");                    
+                    console.log("is a cell race");
                     //check if targetCell is a safe-zone
                         //if it is not
                     if (!this.checkisSafeZone(targetCellParent)) {
-                        //console.log("not safe");
+                        console.log("not safe");
                         
                             //check if opponent pips are there 
                         this.checkOpponentPips(targetCellParent);
                             //if there are oponent pips                        
                                 //move opponent pips pip to player's base
-                    }                        
+                    }
+                    else {
+                        console.log("safe cell");
+                    }
                 }                                                                    
         }    
         else {
@@ -359,13 +364,17 @@ class GAME extends EventEmitter {
                 })
             }            
         }    
-        //console.log("destination",targetCell,targetCellParent);        
-            
+            //console.log("destination",targetCell,targetCellParent);
             //end turn
-        if (this.#diceValue != 6 && !hasReachedGoal && !hasGameEnded)   this.nextPlayer();
+        if (this.#diceValue != 6 && !hasReachedGoal && !hasGameEnded)  {
+            setTimeout(function() {
+                this.nextPlayer();
+            }.bind(this), 1500);
+        }
     }
 
     renderMovement(pipWillMove, whichPip, movementData) {
+        console.log("render movement");
         if (pipWillMove) {            
             //remove pip from current cell in this.tracks.races map
             
@@ -398,7 +407,9 @@ class GAME extends EventEmitter {
                 this.checkDestination(whichPip,targetCell);
             }
         }
-
+        else {
+            console.log("render pip not moving");
+        }
     }
 
     canDeploy() {
@@ -480,6 +491,8 @@ class GAME extends EventEmitter {
         });
 
         document.querySelector(".dice").classList.add("dice-" + this.playerOrder[player]);
+        document.querySelector(".dice .show").classList.remove('show');
+        document.querySelector(".dice .face-0").classList.add('show');
     }
 
     renderOther() {

@@ -45,7 +45,11 @@
                 <div class="token blue animate__animated animate__tada"> </div>
             </div>
         </div>
-
+        <!--<div class="inner">-->
+        <!--<div class="token blue animate__animated animate__tada"> </div>
+        <div class="token blue animate__animated animate__tada"> </div>
+        <div class="token green animate__animated animate__tada"> </div>-->
+        <!--</div>-->
         <div class="cell race-1 start-r " title="1"></div>
         <div class="cell race-2" title="2"></div>
         <div class="cell race-3" title="3"></div>
@@ -83,7 +87,7 @@
         <div class="cell race-35" title="35"></div>
         <div class="cell race-36" title="36"></div>
         <div class="cell race-37" title="37"></div>
-        <div class="cell race-38   end-b" title="38"></div>
+        <div class="cell race-38  end-b" title="38"></div>
         <div class="cell race-39" title="39"></div>
         <div class="cell race-40 start-b " title="40"></div>
         <div class="cell race-41" title="41"></div>
@@ -93,13 +97,7 @@
         <div class="cell race-45" title="45"></div>
         <div class="cell race-46" title="46"></div>
         <div class="cell race-47" title="47"></div>
-        <div class="cell race-48" title="48">
-            <!--<div class="inner">-->
-                <!--<div class="token blue animate__animated animate__tada"> </div>
-                <div class="token blue animate__animated animate__tada"> </div>
-                <div class="token green animate__animated animate__tada"> </div>-->
-            <!--</div>-->
-        </div>
+        <div class="cell race-48" title="48"></div>
         <div class="cell race-49" title="49"></div>
         <div class="cell race-50" title="50"></div>
         <div class="cell race-51 end-r" title="51"></div>
@@ -140,7 +138,10 @@
     </div>
 
     <div class="dice animate__animated ">
-        <div class="face-1 show">
+        <div class="face-0 show">
+            <span class="pip">R</span>
+        </div>
+        <div class="face-1">
             <span class="pip"></span>
         </div>
         <div class="face-2 ">
@@ -250,10 +251,9 @@
             var result = droll.roll('1d6');
             $(".dice .show").removeClass("show");
             $(".dice .face-" + result.total).addClass("show");
-            
-            //JOGO.play(result);              
+
+            //JOGO.play(result);
             JOGO.play(Number(result));
-            
         });
 
         

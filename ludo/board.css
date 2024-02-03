@@ -1,4 +1,4 @@
-@charset "UTF-8";
+ @charset "UTF-8";
 * {
   padding: 0px;
   margin: 0px;
@@ -37,16 +37,16 @@ body {
   border-radius: 1rem;
   overflow: hidden;
   background: #fff;
-  transform: perspective(1000px) rotateX(30deg);
   transition: all 0.4s ease 0s;
   -moz-box-shadow: 0 20px 50px -6px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 20px 50px -6px rgba(0, 0, 0, 0.4);
   box-shadow: 0 20px 50px -6px rgba(0, 0, 0, 0.4);
+  transform: perspective(2000px) rotateX(0deg);
 }
 
 .board:hover,
 .board.static {
-  transform: perspective(2000px) rotateX(0deg);
+  /*transform: perspective(2000px) rotateX(0deg);*/
   -moz-box-shadow: 0 0 60px -6px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 0 60px -6px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 60px -6px rgba(0, 0, 0, 0.4);
@@ -1105,6 +1105,7 @@ body {
   bottom: 50px;
 }
 
+.dice .face-0,
 .dice .face-1,
 .dice .face-2,
 .dice .face-3,
@@ -1123,6 +1124,12 @@ body {
   box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.4);
 }
 
+ .dice .face-0 {
+   font-size: 18px;
+   font-weight: bolder;
+ }
+
+.dice .face-0.show,
 .dice .face-1.show,
 .dice .face-1 .col,
 .dice .face-2.show,
@@ -1138,6 +1145,7 @@ body {
   display: flex;
 }
 
+.dice .face-0  .pip,
 .dice .face-1 .pip,
 .dice .face-2 .pip,
 .dice .face-3 .pip,
@@ -1150,6 +1158,13 @@ body {
   border-radius: 7px;
   background-color: #333;
 }
+
+ .dice .face-0 .pip {
+   display: contents;
+   background-color: #fff;
+   width: auto;
+   height: auto;
+ }
 
 .dice.dice-r .pip {
   background-color: #ea4330;
@@ -1167,6 +1182,7 @@ body {
   background-color: #4285f4;
 }
 
+.dice .face-0,
 .dice .face-1 {
   justify-content: center;
   align-items: center;
