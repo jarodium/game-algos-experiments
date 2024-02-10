@@ -119,6 +119,19 @@ class Tabuleiro extends EventEmitter {
                 this.pistas.base.push(new Casa({tipo: 'base', cor : this.casaDosJogadores[i-1].cor, 'pipetas' : pipeta, numero: j }));
             }
         }
+
+        this.render();
+    }
+
+    renderSafeZones() {
+        let casas_seguras = this.pistas.pista.filter(casa => casa.segura);
+        casas_seguras.forEach(casa => {
+            document.querySelector(".race-" + casa.numero).classList.add("safe-zone");
+        });
+    }
+
+    render() {
+        this.renderSafeZones();
     }
 
     info(contexto) {
@@ -145,5 +158,9 @@ class Tabuleiro extends EventEmitter {
                 break;
             }
         }
+    }
+
+    consultarCDJ(chave, valor) {
+        return this.casaDosJogadores.filter(jogador => jogador[chave] === valor)[0];
     }
 }
