@@ -50,8 +50,17 @@ class GAME extends EventEmitter {
         }
         this.currentPlayerIndex = this.startPlayerIndex;
 
+        this.diceLocked = false;
+
         this.render();
     }        
+
+    lockDice() {
+        this.diceLocked = true;
+    }
+    unLockDice() {
+        this.diceLocked = false;
+    }
 
     getPlayerColor(playerIndex = this.currentPlayerIndex) {
         return this.playerOrder[playerIndex];
@@ -62,15 +71,16 @@ class GAME extends EventEmitter {
 
     play(diceValue) {
         this.#diceValue = diceValue;
+        console.log('player color', this.getPlayerColor());
 
         if (this.#diceValue == 6) {
             if (this.canDeploy()) {
-                    //user is allowed to deploy                  
+                //user is allowed to deploy
                 this.emit('allowedToDeploy',{
                     playerColor : this.getPlayerColor()
                 });
                 //this.deploy();
-            } else {                
+            } else {
                 this.canMove();
             }
         } else {
@@ -79,9 +89,12 @@ class GAME extends EventEmitter {
     }
 
     nextPlayer() {
+        this.unLockDice();
         this.currentPlayerIndex++;
         if (this.currentPlayerIndex == this.playerOrder.length) this.currentPlayerIndex = 0;
-        this.renderDice(this.currentPlayerIndex);
+        setTimeout(function() {
+            this.renderDice(this.currentPlayerIndex);
+        }.bind(this), 1000);
     }
 
     
@@ -237,10 +250,7 @@ class GAME extends EventEmitter {
         else {
             //this.endPlay();
             //console.log("no pips to move");
-            setTimeout(function() {
-                this.nextPlayer();
-            }.bind(this), 1500);
-
+            this.nextPlayer();
         }
           
     }
@@ -292,14 +302,7 @@ class GAME extends EventEmitter {
                 
             //pass the turn to other player if dice != 6        
     }
-    unDeploy(cellNumber,color) {
-        //sends back do base
-        let pipColor = this.getPlayerPipColor(this.playerOrder.indexOf(color));
 
-        let target = document.querySelector(".cell.race-"+cellNumber+" .inner .token."+pipColor);
-
-        document.querySelector(".base."+color+" .inner").appendChild(target);
-    }
     checkOpponentPips(targetCell) {
         //checks the race         
         let cellNumber = Number(targetCell.title);
@@ -369,7 +372,7 @@ class GAME extends EventEmitter {
         if (this.#diceValue != 6 && !hasReachedGoal && !hasGameEnded)  {
             setTimeout(function() {
                 this.nextPlayer();
-            }.bind(this), 1500);
+            }.bind(this), 1000);
         }
     }
 
@@ -424,6 +427,17 @@ class GAME extends EventEmitter {
         //adds a pipColor to this.tracks.races
         let cellNr = document.querySelector(".start-"+this.getPlayerColor()).getAttribute("title");
         this.addToTrackRaces(Number(cellNr));
+        this.unLockDice();
+    }
+
+    unDeploy(cellNumber,color) {
+        //sends back do base
+        let pipColor = this.getPlayerPipColor(this.playerOrder.indexOf(color));
+
+        let target = document.querySelector(".cell.race-"+cellNumber+" .inner .token."+pipColor);
+
+        document.querySelector(".base."+color+" .inner").appendChild(target);
+        removeFromTrackRaces(Number(cellNumber, color));
     }
 
     removeFromTrackRaces(cellNr,playerColor) {

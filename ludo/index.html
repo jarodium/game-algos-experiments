@@ -247,13 +247,14 @@
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-
-            var result = droll.roll('1d6');
-            $(".dice .show").removeClass("show");
-            $(".dice .face-" + result.total).addClass("show");
-
-            //JOGO.play(result);
-            JOGO.play(Number(result));
+            if (!JOGO.diceLocked) {
+                var result = droll.roll('1d6');
+                $(".dice .show").removeClass("show");
+                $(".dice .face-" + result.total).addClass("show");
+                JOGO.lockDice();
+                //JOGO.play(result);
+                JOGO.play(Number(result));
+            }
         });
 
         
