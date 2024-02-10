@@ -72,7 +72,8 @@ class Tabuleiro extends EventEmitter {
 
         // definir as pistas normais de corrida
         for (var i = 1; i <= this.casasNormais; i++) {
-            this.pistas.pista.set(i, new Casa({tipo: 'normal', segura: false}));
+            let seguranca = [1, 9, 14, 22, 27, 35, 40, 48].includes(i);
+            this.pistas.pista.set(i, new Casa({tipo: 'normal', segura: seguranca}));
         }
 
         // definir os jogadores e as respectivas casas
@@ -86,6 +87,32 @@ class Tabuleiro extends EventEmitter {
             for (var j = 1; j <= this.casasBase; j++) {
                 let pipeta = new Pipeta({cor: this.casaDosJogadores[i-1].cor});
                 this.pistas.base.set(j, new Casa({tipo: 'base', cor : this.casaDosJogadores[i-1].cor, 'pipetas' : pipeta }));
+            }
+        }
+    }
+
+    info(contexto) {
+        switch(contexto) {
+            case 1 : {
+                console.log(this.jogadoresCount);
+                console.log(this.casaDosJogadores);
+                console.log(this.jogadores);
+                break;
+            }
+
+            case 2: {
+                console.log(this.pistas);
+                break;
+            }
+
+            case 3: {
+                console.log(this.casasNormais = 52, this.casasFinais = 6, this.casasBase = 4);
+                break;
+            }
+
+            default : {
+                console.log(this);
+                break;
             }
         }
     }
