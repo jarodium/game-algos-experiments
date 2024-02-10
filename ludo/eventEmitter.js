@@ -54,8 +54,10 @@ EventEmitter.prototype.removeAllListeners = function removeAllListeners( name ) 
 }
 
 EventEmitter.prototype.emit = function emit( name, data ) {
-    for ( let i = this.events[name].length - 1; i >= 0 ; --i ) {
-        this.events[name][i]( data );
+    if (this.events[name]) {
+        for ( let i = this.events[name].length - 1; i >= 0 ; --i ) {
+            this.events[name][i]( data );
+        }
     }
 }
 

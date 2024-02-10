@@ -201,64 +201,13 @@
         startPlayer: 'r'
     });
 
-    /*JOGO.on("gameOver",(data) => {
-        alert("game over");
+    let DIE = new Dado({
+        'el' : '.dice'
+    });
+
+    $(function() {
+
     })
-
-    JOGO.on("allowedToDeploy",(data) => {
-        $(".base."+data.playerColor+" .token").addClass("active").on("click",function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-
-            $(this).siblings().addBack().removeClass("active");
-            $(this).off("click");
-
-            JOGO.deploy($(this).get(0));
-        });
-    });
-    JOGO.on("allowedToMove",(data) => {
-        //TODO
-            //add active classe to all red cells and a click event to move cells
-        console.log(data);
-        
-        data.selectCellsAtTrackRaces.forEach(el => {                
-            $(".cell.race-"+el+" ."+data.playerPipColor).addClass("active").on("click",function() {
-                $(".cell .token."+data.playerPipColor).removeClass("active").off("click");
-
-                JOGO.move($(this).get(0),data.diceValue);
-            })
-        });
-
-        data.selectCellsAtTrackFinal.forEach(el => {
-            console.log("class final",".cell."+data.playerColor+"-f-"+el+" .token");
-
-            $(".cell."+data.playerColor+"-f-"+el+" .token").addClass("active").on("click",function() {
-                $(".cell .token."+data.playerPipColor).removeClass("active").off("click");                            
-
-                JOGO.move($(this).get(0),data.diceValue);
-            });
-        });
-            
-    });
-
-    $(function() {        
-        $(".dice").on("click", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            if (!JOGO.diceLocked) {
-                var result = droll.roll('1d6');
-                $(".dice .show").removeClass("show");
-                $(".dice .face-" + result.total).addClass("show");
-                JOGO.lockDice();
-                //JOGO.play(result);
-                JOGO.play(Number(result));
-            }
-        });
-
-        
-    })*/
 </script>
 
 </html>

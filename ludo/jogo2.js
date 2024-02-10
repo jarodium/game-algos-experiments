@@ -15,23 +15,52 @@ class Jogador extends EventEmitter {
 
 class Pipeta {
     constructor(options) {
-        this.cor = options.cor;
+        for (const chave in options) {
+            if (options.hasOwnProperty(chave)) {
+                this[chave] = options[chave];
+            }
+        }
     }
 }
 
 class Dado extends EventEmitter {
     #event;
+    #el;
+    #valorActual;
     constructor(options) {
         super();
-        this.#event = new EventEmitter();
 
-        this.cor = options.cor;
+        this.#event = new EventEmitter();
+        this.#el = document.querySelector(options.el);
+        this.reset();
+        this.render();
     }
 
     rolar() {
-        this.emit('dadoRolado',{
-            resultado : droll.roll('1d6')
+        this.#valorActual = droll.roll('1d6');
+        this.render();
+
+        this.emit('rolado',{
+            resultado : this.#valorActual
         });
+    }
+
+    colorir(cor) {
+        this.cor = cor;
+    }
+
+    reset() {
+        this.#valorActual = 0;
+        this.render();
+    }
+
+    render() {
+        this.#el.querySelector('.show').classList.remove('show');
+
+        if (this.cor !== '') {
+            this.#el.classList.add("dice-" + this.cor);
+            this.#el.querySelector('.face-' + this.#valorActual).classList.add('show');
+        }
     }
 }
 
