@@ -65,8 +65,8 @@ class Dado extends EventEmitter {
 }
 
 class Casa {
-
     constructor(options) {
+        this.numero = options.numero;
         this.tipo = options.tipo ?? 'normal'; // normal // final // base
         this.segura = options.segura ?? false;
         this.cor = options.cor ?? 't';
@@ -91,9 +91,9 @@ class Tabuleiro extends EventEmitter {
         this.jogadores = [];
 
         this.pistas = {
-            pista: new Map(),
-            final: new Map(),
-            base: new Map(),
+            pista: [],
+            final: [],
+            base: [],
         }
         this.casasNormais = 52;
         this.casasFinais = 6;
@@ -102,20 +102,21 @@ class Tabuleiro extends EventEmitter {
         // definir as pistas normais de corrida
         for (var i = 1; i <= this.casasNormais; i++) {
             let seguranca = [1, 9, 14, 22, 27, 35, 40, 48].includes(i);
-            this.pistas.pista.set(i, new Casa({tipo: 'normal', segura: seguranca}));
+            this.pistas.pista.push(new Casa({tipo: 'normal', segura: seguranca, numero: i}));
         }
 
         // definir os jogadores e as respectivas casas
         for (var i = 1; i <= this.jogadoresCount; i++) {
             this.jogadores.push(new Jogador(this.casaDosJogadores[i-1]));
+            let cor = this.casaDosJogadores[i-1].cor;
 
             for (var j = 1; j <= this.casasFinais; j++) {
-                this.pistas.final.set(j, new Casa({tipo: 'final', cor : this.casaDosJogadores[i-1].cor}));
+                this.pistas.final.push(new Casa({tipo: 'final', cor : cor, numero: j}));
             }
 
             for (var j = 1; j <= this.casasBase; j++) {
-                let pipeta = new Pipeta({cor: this.casaDosJogadores[i-1].cor});
-                this.pistas.base.set(j, new Casa({tipo: 'base', cor : this.casaDosJogadores[i-1].cor, 'pipetas' : pipeta }));
+                let pipeta = new Pipeta({cor: cor});
+                this.pistas.base.push(new Casa({tipo: 'base', cor : this.casaDosJogadores[i-1].cor, 'pipetas' : pipeta, numero: j }));
             }
         }
     }
