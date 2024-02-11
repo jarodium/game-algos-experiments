@@ -42,7 +42,7 @@ class Dado extends EventEmitter {
     rolar() {
         if (!this.consultaEstado('rolando')) {
             this.setEstado('rolando', true);
-            this.setEstado('valorActual', droll.roll('1d6'));
+            this.setEstado('valorActual', droll.roll('1d6').total);
 
             this.render();
 
@@ -210,8 +210,9 @@ class Jogo extends EventEmitter {
         this.dado.colorir(jogador.cor);
         this.dado.rolar();
 
-        this.emit('jogo.vezseguinte',{
-            resultado : this.consultaEstado('jogadorActual')
+        this.emit('jogo.terminouturno',{
+            jogadorActual : this.consultaEstado('jogadorActual'),
+            dadoValorActual : this.dado.consultaEstado('valorActual')
         });
     }
 

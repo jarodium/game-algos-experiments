@@ -209,14 +209,21 @@
         tabuleiro : BOARD
     })
 
+    GAME.on('jogo.terminouturno', function(dados) {
+        if (dados.dadoValorActual === 6) {
+            GAME.lancarPipeta(dados);
+        }
+        else {
+            GAME.jogadorSeguinte();
+        }
+    })
+
     $(function() {
-        GAME.vezSeguinte();
+        //GAME.vezSeguinte();
 
         $(".dice").on("click", function() {
             GAME.vezSeguinte();
         });
-
-
     })
 </script>
 
