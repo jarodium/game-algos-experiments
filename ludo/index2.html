@@ -195,15 +195,19 @@
 <script src="eventEmitter.js"></script>
 <script src="jogo2.js"></script>
 <script src="jquery-3.6.1.slim.min.js"></script>
-<script>    
-    let JOGO = new Tabuleiro({
+<script>
+    let DIE = new Dado({
+        'el' : '.dice'
+    });
+    let BOARD = new Tabuleiro({
         //safeZones: [9],        
         startPlayer: 'r'
     });
 
-    let DIE = new Dado({
-        'el' : '.dice'
-    });
+    let GAME = new Jogo({
+        dado : DIE,
+        tabuleiro : BOARD
+    })
 
     $(function() {
 

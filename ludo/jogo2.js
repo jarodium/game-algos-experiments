@@ -40,7 +40,7 @@ class Dado extends EventEmitter {
         this.#valorActual = droll.roll('1d6');
         this.render();
 
-        this.emit('rolado',{
+        this.emit('dado.rolado',{
             resultado : this.#valorActual
         });
     }
@@ -115,7 +115,7 @@ class Tabuleiro extends EventEmitter {
             }
 
             for (var j = 1; j <= this.casasBase; j++) {
-                let pipeta = new Pipeta({cor: cor});
+                let pipeta = new Pipeta({cor: cor, numero: j});
                 this.pistas.base.push(new Casa({tipo: 'base', cor : this.casaDosJogadores[i-1].cor, 'pipetas' : pipeta, numero: j }));
             }
         }
@@ -162,5 +162,38 @@ class Tabuleiro extends EventEmitter {
 
     consultarCDJ(chave, valor) {
         return this.casaDosJogadores.filter(jogador => jogador[chave] === valor)[0];
+    }
+}
+
+class Jogo extends EventEmitter {
+    #event;
+    #estado = {};
+    constructor(options) {
+        super();
+
+        this.dado = options.dado;
+        this.tabuleiro = options.tabuleiro;
+
+        this.#event = new EventEmitter();
+        this.setEstado('jogadorActual', -1);
+    }
+
+    vezSeguinte() {
+        let jogadorActual = this.consultaEstado('jogadorActual');
+        if (jogadorActual == this.tabuleiro.jogadoresCount) {
+            jogadorActual = -1;
+        }
+        this.setEstado('jogadorActual', jogadorActual + 1);
+
+        this.emit('jogo.vezseguinte',{
+            resultado :this.consultaEstado('jogadorActual')
+        });
+    }
+
+    consultaEstado(chave) {
+        return this.#estado[chave];
+    }
+    setEstado(chave, valor) {
+        this.#estado[chave] = valor;
     }
 }
