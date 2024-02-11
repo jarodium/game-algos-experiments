@@ -26,23 +26,28 @@ class Pipeta {
 class Dado extends EventEmitter {
     #event;
     #el;
+    #estado;
     #valorActual;
+    #rolando;
     constructor(options) {
         super();
 
         this.#event = new EventEmitter();
         this.#el = document.querySelector(options.el);
+        this.#estado = {};
         this.reset();
         this.render();
     }
 
     rolar() {
-        this.#valorActual = droll.roll('1d6');
-        this.render();
+        if (!this.consultaEstado('rolando')) {
+            this.setEstado('rolando', true);
+            this.setEstado('valorActual', droll.roll('1d6'));
 
-        this.emit('dado.rolado',{
-            resultado : this.#valorActual
-        });
+            this.render();
+
+            this.setEstado('rolando', false);
+        }
     }
 
     colorir(cor) {
@@ -50,7 +55,9 @@ class Dado extends EventEmitter {
     }
 
     reset() {
-        this.#valorActual = 0;
+        this.setEstado('valorActual', 0);
+        this.setEstado('rolando', false);
+
         this.render();
     }
 
@@ -58,9 +65,18 @@ class Dado extends EventEmitter {
         this.#el.querySelector('.show').classList.remove('show');
 
         if (this.cor !== '') {
+            const valorActual = this.consultaEstado('valorActual');
             this.#el.classList.add("dice-" + this.cor);
-            this.#el.querySelector('.face-' + this.#valorActual).classList.add('show');
+            this.#el.querySelector('.face-' + valorActual).classList.add('show');
         }
+    }
+
+    consultaEstado(chave) {
+        return this.#estado[chave];
+    }
+    setEstado(chave, valor) {
+        this.#estado[chave] = valor;
+        return true;
     }
 }
 
@@ -180,13 +196,22 @@ class Jogo extends EventEmitter {
 
     vezSeguinte() {
         let jogadorActual = this.consultaEstado('jogadorActual');
+        jogadorActual += 1;
+
         if (jogadorActual == this.tabuleiro.jogadoresCount) {
-            jogadorActual = -1;
+            jogadorActual = 0;
         }
-        this.setEstado('jogadorActual', jogadorActual + 1);
+        this.setEstado('jogadorActual', jogadorActual);
+
+        const jogadorIndex = Number(this.consultaEstado('jogadorActual'));
+        const jogador = this.tabuleiro.jogadores[jogadorIndex];
+
+        //definir o layout do dado e rolar
+        this.dado.colorir(jogador.cor);
+        this.dado.rolar();
 
         this.emit('jogo.vezseguinte',{
-            resultado :this.consultaEstado('jogadorActual')
+            resultado : this.consultaEstado('jogadorActual')
         });
     }
 
@@ -195,5 +220,6 @@ class Jogo extends EventEmitter {
     }
     setEstado(chave, valor) {
         this.#estado[chave] = valor;
+        return true;
     }
 }
