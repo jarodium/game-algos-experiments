@@ -1,3 +1,12 @@
+class Utils {
+    static removerClasses(elemento, classe) {
+        elemento.classList.remove.apply(
+            elemento.classList,
+            Array.from(elemento.classList).filter(v=>v.startsWith(classe))
+        );
+    }
+}
+
 class Jogador extends EventEmitter {
     #event;
 
@@ -66,6 +75,8 @@ class Dado extends EventEmitter {
 
         if (this.cor !== '') {
             const valorActual = this.consultaEstado('valorActual');
+            Utils.removerClasses(this.#el, 'dice-');
+
             this.#el.classList.add("dice-" + this.cor);
             this.#el.querySelector('.face-' + valorActual).classList.add('show');
         }
@@ -92,9 +103,11 @@ class Casa {
 
 class Tabuleiro extends EventEmitter {
     #event;
+    #el;
     constructor(options) {
         super();
         this.#event = new EventEmitter();
+        this.#el = document.querySelector(options.el);
 
         this.jogadoresCount   = options.jogadores ?? 1;
         this.casaDosJogadores = [
@@ -137,6 +150,10 @@ class Tabuleiro extends EventEmitter {
         }
 
         this.render();
+    }
+
+    activarPipetas() {
+        console.log("ativar pipetas");
     }
 
     renderSafeZones() {
@@ -192,10 +209,13 @@ class Jogo extends EventEmitter {
 
         this.#event = new EventEmitter();
         this.setEstado('jogadorActual', -1);
+        this.setEstado('impedirJogada', false);
     }
 
     escolherPipeta() {
+        this.setEstado('impedirJogada', true);
         let jogadorActual = this.consultaEstado('jogadorActual');
+        this.tabuleiro.activarPipetas();
     }
 
     jogadorSeguinte() {
@@ -215,16 +235,21 @@ class Jogo extends EventEmitter {
     }
 
     vezSeguinte() {
-        const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
+        if (!this.consultaEstado('impedirJogada')) {
+            const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
 
-        //definir o layout do dado e rolar
-        this.dado.colorir(jogador.cor);
-        this.dado.rolar();
+            //definir o layout do dado e rolar
+            this.dado.colorir(jogador.cor);
+            this.dado.rolar();
 
-        this.emit('jogo.terminouturno',{
-            jogadorActual : this.consultaEstado('jogadorActual'),
-            dadoValorActual : this.dado.consultaEstado('valorActual')
-        });
+            this.emit('jogo.terminouturno', {
+                jogadorActual: this.consultaEstado('jogadorActual'),
+                dadoValorActual: this.dado.consultaEstado('valorActual')
+            });
+        }
+        else {
+            console.log('não pode jogar');
+        }
     }
 
     consultaEstado(chave) {

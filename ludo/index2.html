@@ -200,8 +200,10 @@
         'el' : '.dice'
     });
     let BOARD = new Tabuleiro({
-        //safeZones: [9],        
-        startPlayer: 'r'
+        //safeZones: [9],
+        el : '.board',
+        jogadores : 2
+        //startPlayer: 'r'
     });
 
     let GAME = new Jogo({
