@@ -194,7 +194,7 @@ class Jogo extends EventEmitter {
         this.setEstado('jogadorActual', -1);
     }
 
-    vezSeguinte() {
+    jogadorSeguinte() {
         let jogadorActual = this.consultaEstado('jogadorActual');
         jogadorActual += 1;
 
@@ -203,8 +203,15 @@ class Jogo extends EventEmitter {
         }
         this.setEstado('jogadorActual', jogadorActual);
 
-        const jogadorIndex = Number(this.consultaEstado('jogadorActual'));
-        const jogador = this.tabuleiro.jogadores[jogadorIndex];
+        const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
+
+        //definir o layout do dado e renderizar
+        this.dado.colorir(jogador.cor);
+        this.dado.render();
+    }
+
+    vezSeguinte() {
+        const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
 
         //definir o layout do dado e rolar
         this.dado.colorir(jogador.cor);
