@@ -213,7 +213,7 @@
 
     GAME.on('jogo.terminouturno', function(dados) {
         if (dados.dadoValorActual === 6) {
-            GAME.escolherPipeta(dados);
+            GAME.activarPipetas(dados);
         }
         else {
             GAME.jogadorSeguinte();
@@ -223,8 +223,12 @@
     $(function() {
         GAME.jogadorSeguinte();
 
-        $(".dice").on("click", function() {
+        $('.dice').on('click', function() {
             GAME.vezSeguinte();
+        });
+
+        $('.base').on('click', '.token', function() {
+           GAME.escolherPipeta($(this).get(0));
         });
     })
 </script>

@@ -152,8 +152,14 @@ class Tabuleiro extends EventEmitter {
         this.render();
     }
 
-    activarPipetas() {
-        console.log("ativar pipetas");
+
+    escolherPipeta(el) {
+        console.log(el);
+    }
+    activarPipetas(cor) {
+        this.#el.querySelectorAll(`.base.${cor} .token`).forEach(el => {
+            el.classList.add('active');
+        });
     }
 
     renderSafeZones() {
@@ -212,10 +218,17 @@ class Jogo extends EventEmitter {
         this.setEstado('impedirJogada', false);
     }
 
-    escolherPipeta() {
+
+    escolherPipeta(el) {
+        this.tabuleiro.escolherPipeta(el);
         this.setEstado('impedirJogada', true);
-        let jogadorActual = this.consultaEstado('jogadorActual');
-        this.tabuleiro.activarPipetas();
+    }
+
+    activarPipetas() {
+        this.setEstado('impedirJogada', true);
+        const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
+
+        this.tabuleiro.activarPipetas(jogador.cor);
     }
 
     jogadorSeguinte() {
