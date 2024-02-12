@@ -194,6 +194,10 @@ class Jogo extends EventEmitter {
         this.setEstado('jogadorActual', -1);
     }
 
+    escolherPipeta() {
+        let jogadorActual = this.consultaEstado('jogadorActual');
+    }
+
     jogadorSeguinte() {
         let jogadorActual = this.consultaEstado('jogadorActual');
         jogadorActual += 1;

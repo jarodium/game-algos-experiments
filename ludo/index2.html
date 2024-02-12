@@ -211,7 +211,7 @@
 
     GAME.on('jogo.terminouturno', function(dados) {
         if (dados.dadoValorActual === 6) {
-            GAME.lancarPipeta(dados);
+            GAME.escolherPipeta(dados);
         }
         else {
             GAME.jogadorSeguinte();
