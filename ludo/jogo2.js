@@ -220,8 +220,13 @@ class Jogo extends EventEmitter {
 
 
     escolherPipeta(el) {
-        this.tabuleiro.escolherPipeta(el);
         this.setEstado('impedirJogada', true);
+        const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
+
+        this.tabuleiro.escolherPipeta({
+            el: el,
+            casaDestino : jogador.casaPartida
+        });
     }
 
     activarPipetas() {
