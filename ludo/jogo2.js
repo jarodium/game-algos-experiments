@@ -5,6 +5,12 @@ class Utils {
             Array.from(elemento.classList).filter(v=>v.startsWith(classe))
         );
     }
+
+    static obterElemento(contexto, dados) {
+        if (contexto == 'casa-normal') {
+            return document.querySelector(`.race-${dados.casa} .inner`);
+        }
+    }
 }
 
 class Jogador extends EventEmitter {
@@ -152,14 +158,37 @@ class Tabuleiro extends EventEmitter {
         this.render();
     }
 
+    moverPipeta(el, casaPartida, opcoes) {
+        let elementoAlvo = Utils.obterElemento('casa-normal', {
+            casa : casaPartida
+        })
+        this.desativarPipeta(el);
+        elementoAlvo.appendChild(el);
 
-    escolherPipeta(el) {
-        console.log(el);
+        this.emit('tabuleiro.pipeta.movida', {});
     }
+
+    /**
+     * Escolher Pipeta da Base
+     * @param dados
+     */
+    escolherPipetaDaBase(dados) {
+        this.moverPipeta(dados.el, dados.jogador.casaPartida, {
+            ignorarPipetasActuais : true
+        })
+    }
+
     activarPipetas(cor) {
         this.#el.querySelectorAll(`.base.${cor} .token`).forEach(el => {
-            el.classList.add('active');
+            this.ativarPipeta(el);
         });
+    }
+    desativarPipeta(el) {
+        el.classList.remove('active');
+    }
+
+    ativarPipeta(el) {
+        el.classList.add('active');
     }
 
     renderSafeZones() {
@@ -172,6 +201,8 @@ class Tabuleiro extends EventEmitter {
     render() {
         this.renderSafeZones();
     }
+
+
 
     info(contexto) {
         switch(contexto) {
@@ -216,6 +247,12 @@ class Jogo extends EventEmitter {
         this.#event = new EventEmitter();
         this.setEstado('jogadorActual', -1);
         this.setEstado('impedirJogada', false);
+
+        // definir eventos
+        this.tabuleiro.on('tabuleiro.pipeta.movida', function(dados) {
+            this.setEstado('impedirJogada', false);
+            this.dado.reset();
+        }.bind(this))
     }
 
 
@@ -223,9 +260,9 @@ class Jogo extends EventEmitter {
         this.setEstado('impedirJogada', true);
         const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
 
-        this.tabuleiro.escolherPipeta({
+        this.tabuleiro.escolherPipetaDaBase({
             el: el,
-            casaDestino : jogador.casaPartida
+            jogador : jogador
         });
     }
 
@@ -248,6 +285,7 @@ class Jogo extends EventEmitter {
         const jogador = this.tabuleiro.jogadores[Number(this.consultaEstado('jogadorActual'))];
 
         //definir o layout do dado e renderizar
+        this.dado.reset();
         this.dado.colorir(jogador.cor);
         this.dado.render();
     }
