@@ -15,10 +15,10 @@
         <div class="home"></div>
         <div class="base r" title="1">
             <div class="inner">
-                <div class="token red animate__animated animate__tada"> </div>
-                <div class="token red animate__animated animate__tada"> </div>
-                <div class="token red animate__animated animate__tada"> </div>
-                <div class="token red animate__animated animate__tada"> </div>
+                <div title="1" class="token red animate__animated animate__tada"> </div>
+                <div title="2" class="token red animate__animated animate__tada"> </div>
+                <div title="3" class="token red animate__animated animate__tada"> </div>
+                <div title="4" class="token red animate__animated animate__tada"> </div>
             </div>
         </div>
         <div class="base g" title="2">
@@ -104,36 +104,36 @@
         <div class="cell race-52" title="52"><div class="inner"></div></div>
 
         <div class="r final">
-            <div class="cell r-f-1 " title="1"><div class="inner"></div></div>
-            <div class="cell r-f-2 " title="2"><div class="inner"></div></div>
-            <div class="cell r-f-3 " title="3"><div class="inner"></div></div>
-            <div class="cell r-f-4 " title="4"><div class="inner"></div></div>
-            <div class="cell r-f-5 " title="5"><div class="inner"></div></div>
-            <div class="cell r-f-6 transparent" title="6"><div class="inner"></div></div>
+            <div class="cell final " title="1"><div class="inner"></div></div>
+            <div class="cell final " title="2"><div class="inner"></div></div>
+            <div class="cell final " title="3"><div class="inner"></div></div>
+            <div class="cell final " title="4"><div class="inner"></div></div>
+            <div class="cell final " title="5"><div class="inner"></div></div>
+            <div class="cell final transparent" title="6"><div class="inner"></div></div>
         </div>
         <div class="g final">
-            <div class="cell g-f-1 " title="1"><div class="inner"></div></div>
-            <div class="cell g-f-2 " title="2"><div class="inner"></div></div>
-            <div class="cell g-f-3 " title="3"><div class="inner"></div></div>
-            <div class="cell g-f-4 " title="4"><div class="inner"></div></div>
-            <div class="cell g-f-5 " title="5"><div class="inner"></div></div>
-            <div class="cell g-f-6 transparent " title="6"><div class="inner"></div></div>
+            <div class="cell final " title="1"><div class="inner"></div></div>
+            <div class="cell final " title="2"><div class="inner"></div></div>
+            <div class="cell final " title="3"><div class="inner"></div></div>
+            <div class="cell final " title="4"><div class="inner"></div></div>
+            <div class="cell final " title="5"><div class="inner"></div></div>
+            <div class="cell final transparent " title="6"><div class="inner"></div></div>
         </div>
         <div class="y final">
-            <div class="cell y-f-6 transparent " title="6"><div class="inner"></div></div>
-            <div class="cell y-f-5 " title="5"><div class="inner"></div></div>
-            <div class="cell y-f-4 " title="4"><div class="inner"></div></div>
-            <div class="cell y-f-3 " title="3"><div class="inner"></div></div>
-            <div class="cell y-f-2 " title="2"><div class="inner"></div></div>
-            <div class="cell y-f-1 " title="1"><div class="inner"></div></div>
+            <div class="cell final transparent " title="6"><div class="inner"></div></div>
+            <div class="cell final " title="5"><div class="inner"></div></div>
+            <div class="cell final " title="4"><div class="inner"></div></div>
+            <div class="cell final " title="3"><div class="inner"></div></div>
+            <div class="cell final " title="2"><div class="inner"></div></div>
+            <div class="cell final " title="1"><div class="inner"></div></div>
         </div>
         <div class="b final">
-            <div class="cell b-f-6 transparent " title="6"><div class="inner"></div></div>
-            <div class="cell b-f-5 " title="5"><div class="inner"></div></div>
-            <div class="cell b-f-4 " title="4"><div class="inner"></div></div>
-            <div class="cell b-f-3 " title="3"><div class="inner"></div></div>
-            <div class="cell b-f-2 " title="2"><div class="inner"></div></div>
-            <div class="cell b-f-1 " title="1"><div class="inner"></div></div>
+            <div class="cell final transparent " title="6"><div class="inner"></div></div>
+            <div class="cell final " title="5"><div class="inner"></div></div>
+            <div class="cell final " title="4"><div class="inner"></div></div>
+            <div class="cell final " title="3"><div class="inner"></div></div>
+            <div class="cell final " title="2"><div class="inner"></div></div>
+            <div class="cell final " title="1"><div class="inner"></div></div>
         </div>
     </div>
 
@@ -202,7 +202,7 @@
     let BOARD = new Tabuleiro({
         //safeZones: [9],
         el : '.board',
-        jogadores : 2
+        jogadores : 1
         //startPlayer: 'r'
     });
 
@@ -212,14 +212,16 @@
     })
 
     GAME.on('jogo.terminouturno', function(dados) {
-        if (dados.dadoValorActual === 6) {
-            GAME.activarPipetas(dados);
+        console.clear();
+        dados.dadoValorActual = 6;
+
+        if (GAME.jogadorPodeMover(dados)) {
+            //GAME.activarPipetas(pipetasParaAtivar);
         }
         else {
             setTimeout(function() {
                 GAME.jogadorSeguinte();
             }, 1000);
-
         }
     })
 
